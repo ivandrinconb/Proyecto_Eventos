@@ -3,7 +3,7 @@ package co.edu.uniquindio.concierto.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Evento {
+public class Evento implements IEvento {
     private String idEvento;
     private String nombre;
     private CategoriaEvento categoria;
@@ -117,5 +117,45 @@ public class Evento {
 
     public void setZonas(List<Zona> zonas) {
         this.zonas = zonas;
+    }
+
+
+    @Override
+    public void crearEvento() {
+
+    }
+
+    @Override
+    public void actualizarEvento() {
+
+    }
+
+    @Override
+    public void eliminarEvento() {
+
+    }
+
+    @Override
+    public void cancelarEvento() {
+
+    }
+
+    @Override
+    public void pausarEvento() {
+
+    }
+
+    @Override
+    public void consultarEvento() {
+
+    }
+    @Override
+    public void consultarDisponibilidad() {
+
+    }
+
+    @Override
+    public void publicarEvento() {
+
     }
 }

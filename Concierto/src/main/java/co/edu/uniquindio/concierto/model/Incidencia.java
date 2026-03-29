@@ -3,7 +3,7 @@ package co.edu.uniquindio.concierto.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Incidencia {
+public class Incidencia implements IIncidencia {
     private String idIncidencia;
     private String tipoIncidencia;
     private String descripcionIncidencia;
@@ -66,4 +66,18 @@ public class Incidencia {
     }
 
 
+    @Override
+    public void registrarIncidencia(TipoIncidencia tipo, String descripcion) {
+
+    }
+
+    @Override
+    public void consultarIncidenciasPorFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+
+    }
+
+    @Override
+    public void consultarIncidenciasPorTipo(TipoIncidencia tipo) {
+
+    }
 }
