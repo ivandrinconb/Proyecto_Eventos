@@ -1,9 +1,9 @@
 package co.edu.uniquindio.concierto.controller;
 
-public class EventoController {
+public class CompraController {
     private SistemaController sistema;
 
-    public EventoController() {
+    public CompraController() {
         sistema = SistemaController.getInstance();
     }
 }
