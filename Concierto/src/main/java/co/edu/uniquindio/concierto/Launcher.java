@@ -5,6 +5,7 @@ import co.edu.uniquindio.concierto.controller.EventoController;
 import co.edu.uniquindio.concierto.model.Evento;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Launcher {
     public static void main(String[] args) {
@@ -12,6 +13,15 @@ public class Launcher {
         Evento evento = new Evento("01", "Emminen", null, "Evento de prueba", "Armenia", LocalDateTime.now(), null, "Sin reembolso", null);
         controller.crearEvento (evento);
         System.out.println(controller.getEventos().size());
+
+        Evento encontrado = controller.buscarEventoPorNombre("Emminen");
+        if (encontrado != null){
+            System.out.println("Evento encontrado: " + encontrado.getNombre());
+        }
+        List<Evento> eventos = controller.filtrarPorCiudad("Armenia");
+        for (Evento e : eventos){
+            System.out.println("Lugar del evento: " + e.getCiudad());
+        }
     }
 
 }
