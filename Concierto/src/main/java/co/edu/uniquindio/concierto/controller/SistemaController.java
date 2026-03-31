@@ -26,7 +26,7 @@ public class SistemaController {
         }
         return instans;
     }
-    // Metdodos basicos para eventos. 
+    // Metdodos basicos para eventos.
     public void agregarEvento (Evento evento){
         listEventos.add (evento);
     }
