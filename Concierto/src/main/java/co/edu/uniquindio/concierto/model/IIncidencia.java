@@ -1,7 +1,9 @@
 package co.edu.uniquindio.concierto.model;
 
+import java.time.LocalDateTime;
+
 public interface IIncidencia {
-    void registrarIncidencia(String tipo, String descripcion);
-    void consultarIncidenciasPorFecha(String fechaInicio, String fechaFin);
-    void consultarIncidenciasPorTipo(String tipo);
+    void registrarIncidencia(TipoIncidencia tipo, String descripcion);
+    void consultarIncidenciasPorFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin);
+    void consultarIncidenciasPorTipo(TipoIncidencia tipo);
 }

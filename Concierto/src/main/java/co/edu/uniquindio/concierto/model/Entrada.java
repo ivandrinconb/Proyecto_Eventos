@@ -1,6 +1,6 @@
 package co.edu.uniquindio.concierto.model;
 
-public class Entrada {
+public class Entrada implements IEntrada {
     private String idEntrada;
     private Zona zona;
     private Asiento asiento;
@@ -46,5 +46,23 @@ public class Entrada {
     }
 
 
+    @Override
+    public void generarEntrada() {
 
+    }
+
+    @Override
+    public void consultarEntradasPorCompra() {
+
+    }
+
+    @Override
+    public void consultarEntradasPorEvento() {
+
+    }
+
+    @Override
+    public void anularEntrada() {
+
+    }
 }

@@ -3,7 +3,7 @@ package co.edu.uniquindio.concierto.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Compra {
+public class Compra implements ICompra {
     private String idCompra;
     private Usuario usuario;
     private Evento evento;
@@ -12,6 +12,8 @@ public class Compra {
     private EstadoCompra estadoCompra;
     private List<Entrada> entradas;
     private List<ServicioAdicional> serviciosAdicionales;
+
+    public Compra() {}
 
     public Compra(String idCompra, Usuario usuario, Evento evento,
                   LocalDateTime fechaCreacion, double total, EstadoCompra estadoCompra, List<Entrada> entradas,
@@ -88,5 +90,36 @@ public class Compra {
                 " estadoCompra=" + estadoCompra +
                 " entradas=" + entradas +
                 " serviciosAdicionales=" + serviciosAdicionales ;
+    }
+
+
+    @Override
+    public void crearCompra() {
+
+    }
+
+    @Override
+    public void modificarCompra() {
+
+    }
+
+    @Override
+    public void cancelarCompra() {
+
+    }
+
+    @Override
+    public void pagarCompra() {
+
+    }
+
+    @Override
+    public void consultarDetalleCompra() {
+
+    }
+
+    @Override
+    public void agregarServicioAdicional(TipoServicioAdicional  tipoServicio) {
+
     }
 }

@@ -6,5 +6,5 @@ public interface ICompra {
     void cancelarCompra();
     void pagarCompra();
     void consultarDetalleCompra();
-    void agregarServicioAdicional(String servicio);
+    void agregarServicioAdicional(TipoServicioAdicional tipoServicio);
 }

@@ -2,13 +2,13 @@ package co.edu.uniquindio.concierto.model;
 
 public class ServicioAdicional {
     private String idServicio;
-    private String nombre;
+    private TipoServicioAdicional tipoServicio;
     private String descripcion;
     private double costo;
 
-    public ServicioAdicional(String idServicio, String nombre, String descripcion, double costo) {
+    public ServicioAdicional(String idServicio, TipoServicioAdicional tipoServicio, String descripcion, double costo) {
         this.idServicio = idServicio;
-        this.nombre = nombre;
+        this.tipoServicio= tipoServicio;
         this.descripcion = descripcion;
         this.costo = costo;
 
@@ -19,12 +19,15 @@ public class ServicioAdicional {
     public void setIdServicio(String idServicio) {
         this.idServicio = idServicio;
     }
-    public String getNombre() {
-        return nombre;
+
+    public TipoServicioAdicional getTipoServicio() {
+        return tipoServicio;
     }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+
+    public void setTipoServicio(TipoServicioAdicional tipoServicio) {
+        this.tipoServicio = tipoServicio;
     }
+
     public String getDescripcion() {
         return descripcion;
     }

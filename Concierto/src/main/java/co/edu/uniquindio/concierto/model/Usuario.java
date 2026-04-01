@@ -2,7 +2,7 @@ package co.edu.uniquindio.concierto.model;
 
 import java.util.List;
 
-public class Usuario {
+public class Usuario implements IUsuario{
     private String idUsuario;
     private String nombreCompleto;
     private String correoElectronico;
@@ -91,4 +91,36 @@ public class Usuario {
                 " metodosPago=" + metodosPago +
                 " compras=" + compras ;
     }
+
+
+
+    public void registrarse(String correo, String password, String telefono) {
+
+    }
+
+    public void iniciarSesion(String correo, String password) {
+
+    }
+
+    @Override
+    public void modificarPerfil(String nombre, String correo, String telefono) {
+
+    }
+
+    @Override
+    public void agregarMetodoPago(TipoMetodoPago metodo) {
+
+    }
+
+    @Override
+    public void eliminarMetodoPago(TipoMetodoPago metodo) {
+
+    }
+
+    @Override
+    public void consultarCompras() {
+
+    }
+
+
 }
