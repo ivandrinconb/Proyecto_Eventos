@@ -1,6 +1,7 @@
 package co.edu.uniquindio.concierto.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Evento {
@@ -29,6 +30,8 @@ public class Evento {
         this.estadoEvento = estadoEvento;
         this.politicas = politicas;
         this.recinto = recinto;
+        this.usuariosAsistentes = new ArrayList<>();
+        this.zonas = new ArrayList<>();
     }
 
     public String getIdEvento() {
