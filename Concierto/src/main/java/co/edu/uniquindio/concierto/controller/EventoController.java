@@ -1,6 +1,6 @@
 package co.edu.uniquindio.concierto.controller;
 
-import co.edu.uniquindio.concierto.model.Evento;
+import co.edu.uniquindio.concierto.model.clases.Evento;
 
 import java.util.ArrayList;
 import java.util.List;

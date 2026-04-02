@@ -2,7 +2,7 @@ package co.edu.uniquindio.concierto;
 
 
 import co.edu.uniquindio.concierto.controller.EventoController;
-import co.edu.uniquindio.concierto.model.Evento;
+import co.edu.uniquindio.concierto.model.clases.Evento;
 
 import java.time.LocalDateTime;
 import java.util.List;
