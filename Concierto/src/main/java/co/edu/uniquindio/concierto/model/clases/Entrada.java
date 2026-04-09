@@ -10,7 +10,8 @@ public class Entrada implements IEntrada {
     private double precioFinal;
     private EstadoEntrada estadoEntrada;
 
-    public Entrada (String idEntrada, Zona zona, Asiento asiento, double precioFinal,  EstadoEntrada estadoEntrada) {
+    public Entrada (String idEntrada, Zona zona, Asiento asiento, double precioFinal,
+                    EstadoEntrada estadoEntrada) {
         this.idEntrada = idEntrada;
         this.zona = zona;
         this.asiento = asiento;
@@ -67,5 +68,15 @@ public class Entrada implements IEntrada {
     @Override
     public void anularEntrada() {
 
+    }
+
+    @Override
+    public String getDescripcion() {
+        return "Entrada Sin Adicionales ";
+    }
+
+    @Override
+    public double getCosto() {
+        return 50000;
     }
 }

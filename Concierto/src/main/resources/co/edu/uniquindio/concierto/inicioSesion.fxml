@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="co.edu.uniquindio.concierto.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+<VBox alignment="CENTER" prefHeight="615.0" prefWidth="732.0" spacing="20.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.concierto.controller.InicioSesionController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <children>
+      <AnchorPane prefHeight="578.0" prefWidth="692.0">
+         <children>
+            <Text layoutX="276.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eventos">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <Text layoutX="189.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="178.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="TxtCorreo" layoutX="279.0" layoutY="241.0" prefHeight="26.0" prefWidth="206.0" />
+            <TextField fx:id="TxtPassword" layoutX="278.0" layoutY="333.0" prefHeight="26.0" prefWidth="206.0" />
+            <Button fx:id="BtnInicioSesion" layoutX="233.0" layoutY="441.0" mnemonicParsing="false" onAction="#OnActionInicioSesion" text="Iniciar Sesion" />
+            <Button fx:id="BtnCrearCuenta" layoutX="399.0" layoutY="441.0" mnemonicParsing="false" onAction="#OnActionCrearCuenta" text="Crear Cuenta" />
+         </children>
+      </AnchorPane>
+   </children>
 </VBox>

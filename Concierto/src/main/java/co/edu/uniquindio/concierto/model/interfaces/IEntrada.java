@@ -5,5 +5,7 @@ public interface IEntrada {
     void consultarEntradasPorCompra();
     void consultarEntradasPorEvento();
     void anularEntrada();
+    String getDescripcion();
+    double getCosto();
 
 }
