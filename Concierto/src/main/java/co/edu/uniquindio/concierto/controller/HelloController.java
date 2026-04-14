@@ -1,4 +1,4 @@
-package co.edu.uniquindio.concierto;
+package co.edu.uniquindio.concierto.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

@@ -10,11 +10,16 @@ import java.util.List;
 public class Launcher {
     public static void main(String[] args) {
         EventoController controller = new EventoController ();
-        Evento evento = new Evento("01", "Emminen", null, "Evento de prueba", "Armenia", LocalDateTime.now(), null, "Sin reembolso", null);
+
+        Evento evento = new Evento();
+        evento.setIdEvento("1");
+        evento.setNombre("Concierto de rap");
+        evento.setCiudad("Armenia");
+
         controller.crearEvento (evento);
         System.out.println(controller.getEventos().size());
 
-        Evento encontrado = controller.buscarEventoPorNombre("Emminen");
+        Evento encontrado = controller.buscarEventoPorNombre("Concierto de rap");
         if (encontrado != null){
             System.out.println("Evento encontrado: " + encontrado.getNombre());
         }
