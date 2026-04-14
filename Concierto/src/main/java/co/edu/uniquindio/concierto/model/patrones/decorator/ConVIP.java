@@ -4,10 +4,11 @@ import co.edu.uniquindio.concierto.model.clases.Compra;
 import co.edu.uniquindio.concierto.model.Enums.TipoServicioAdicional;
 import co.edu.uniquindio.concierto.model.clases.Entrada;
 import co.edu.uniquindio.concierto.model.clases.ServicioAdicional;
+import co.edu.uniquindio.concierto.model.interfaces.IEntrada;
 
 public class ConVIP extends ServicioAdicionalDecorator {
 
-    public ConVIP(Entrada entrada, ServicioAdicional servicioAdicional) {
+    public ConVIP(IEntrada entrada, ServicioAdicional servicioAdicional) {
         super(entrada);
 
 

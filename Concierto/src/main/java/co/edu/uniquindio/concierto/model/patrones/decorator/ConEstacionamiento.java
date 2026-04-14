@@ -3,10 +3,11 @@ package co.edu.uniquindio.concierto.model.patrones.decorator;
 import co.edu.uniquindio.concierto.model.clases.Compra;
 import co.edu.uniquindio.concierto.model.clases.Entrada;
 import co.edu.uniquindio.concierto.model.clases.ServicioAdicional;
+import co.edu.uniquindio.concierto.model.interfaces.IEntrada;
 
 public class ConEstacionamiento extends ServicioAdicionalDecorator {
 
-    public ConEstacionamiento(Entrada entrada) {
+    public ConEstacionamiento(IEntrada entrada) {
         super(entrada);
 
     }

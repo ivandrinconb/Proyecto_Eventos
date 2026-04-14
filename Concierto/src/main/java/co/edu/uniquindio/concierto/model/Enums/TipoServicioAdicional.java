@@ -4,5 +4,6 @@ public enum TipoServicioAdicional {
     VIP,
     SEGURO,
     ESTACIONAMIENTO,
-    COMIDA,
+    ACCESOPREFERENCIAL,
+    MERCHANDISING,
 }

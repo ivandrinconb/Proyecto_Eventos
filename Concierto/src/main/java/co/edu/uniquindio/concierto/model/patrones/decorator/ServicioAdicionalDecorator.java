@@ -5,11 +5,11 @@ import co.edu.uniquindio.concierto.model.clases.Entrada;
 import co.edu.uniquindio.concierto.model.interfaces.IEntrada;
 
 public abstract class ServicioAdicionalDecorator implements IEntrada {
-    protected Entrada entrada;
+    protected IEntrada entrada;
 
 
 
-    public ServicioAdicionalDecorator(Entrada entrada) {
+    public ServicioAdicionalDecorator(IEntrada entrada) {
 
 
     }

@@ -1,9 +1,11 @@
 package co.edu.uniquindio.concierto.model.patrones.decorator;
 
 import co.edu.uniquindio.concierto.model.clases.Entrada;
+import co.edu.uniquindio.concierto.model.interfaces.IEntrada;
 
 public class ConAccesoPreferencial extends ServicioAdicionalDecorator {
-    public ConAccesoPreferencial(Entrada entrada) {
+    public ConAccesoPreferencial(IEntrada entrada) {
+
         super(entrada);
     }
 
