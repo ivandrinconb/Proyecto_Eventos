@@ -77,6 +77,6 @@ public class Entrada implements IEntrada {
 
     @Override
     public double getCosto() {
-        return 50000;
+        return 100000;
     }
 }
