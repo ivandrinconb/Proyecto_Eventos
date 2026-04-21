@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Usuario implements IUsuario {
     private String idUsuario;
-    private String nombreCompleto;
+    private String nombre;
     private String correoElectronico;
     private String password;
     private String telefono;
@@ -16,10 +16,10 @@ public class Usuario implements IUsuario {
 
     public Usuario() {}
 
-    public Usuario(String idUsuario, String nombreCompleto, String correoElectronico,String password,
+    public Usuario(String idUsuario, String nombre, String correoElectronico,String password,
                    String telefono, List<MetodoPago> metodosPago, List<Compra> compras) {
         this.idUsuario = idUsuario;
-        this.nombreCompleto = nombreCompleto;
+        this.nombre = nombre;
         this.correoElectronico = correoElectronico;
         this.password = password;
         this.telefono = telefono;
@@ -36,12 +36,12 @@ public class Usuario implements IUsuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getNombreCompleto() {
-        return nombreCompleto;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getCorreoElectronico() {
@@ -88,7 +88,7 @@ public class Usuario implements IUsuario {
     public String toString() {
         return "Usuario =" +
                 "idUsuario=" + idUsuario + '\'' +
-                " nombreCompleto=" + nombreCompleto + '\'' +
+                " nombre=" + nombre + '\'' +
                 " correoElectronico=" + correoElectronico + '\'' +
                 " telefono=" + telefono + '\'' +
                 " metodosPago=" + metodosPago +
@@ -124,6 +124,7 @@ public class Usuario implements IUsuario {
     public void consultarCompras() {
 
     }
+
 
 
 }
