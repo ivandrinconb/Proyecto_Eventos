@@ -68,7 +68,7 @@ public class CrearUsuarioViewController {
         Usuario nuevoUsuario = new Usuario(
                 txtNombre.getText(),
                 txtIdentificacion.getText(),
-                txtCorreoElectronico.getText(),
+                txtCorreo.getText(),
                 txtPassword.getText(),
                 txtTelefono.getText());
 
