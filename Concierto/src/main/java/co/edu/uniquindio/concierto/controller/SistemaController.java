@@ -48,5 +48,14 @@ public class SistemaController {
     public List<Compra> getCompras() {
         return listCompras;
     }
+    public Usuario buscarUsuarioPorCredenciales(String correo, String password) {
+        for (Usuario u : listUsuarios) {
+            if (u.getCorreoElectronico().equals(correo) && u.getPassword().equals(password)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
 
 }

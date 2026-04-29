@@ -196,8 +196,29 @@ public class CrearUsuarioViewController {
 
     @FXML
     void OnActionIniciarSesion(ActionEvent event) {
-        Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stageActual.close();
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/inicioSesion.fxml")
+            );
+            Parent root = loader.load();
+
+
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+
+            stage.setScene(new Scene(root));
+            stage.setTitle("Inicio de Sesión");
+            stage.show();
+
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo abrir la ventana de inicio de sesión.");
+            alert.showAndWait();
+        }
+
+
 
     }
 
