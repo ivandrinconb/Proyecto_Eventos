@@ -30,7 +30,7 @@ public class InicioSesionViewController {
     private URL location;
 
     @FXML
-    private Button BtnInicioSesion;
+    private Button BtnIngresar;
 
     @FXML
     private TextField TxtCorreo;
@@ -39,7 +39,7 @@ public class InicioSesionViewController {
     private TextField TxtPassword;
 
     @FXML
-    void OnActionInicioSesion(ActionEvent event) {
+    void OnActionIngresar(ActionEvent event) {
 
 
     }

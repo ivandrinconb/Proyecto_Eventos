@@ -1,5 +1,6 @@
 package co.edu.uniquindio.concierto.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -9,8 +10,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class CrearUsuarioViewController {
 
@@ -34,7 +40,7 @@ public class CrearUsuarioViewController {
     private Button btnRegistrar;
 
     @FXML
-    private Button btnVolver;
+    private Button btnIniciarSesion;
 
     @FXML
     private TableView<Usuario> tableUsuario;
@@ -189,7 +195,9 @@ public class CrearUsuarioViewController {
     }
 
     @FXML
-    void OnActionVolver(ActionEvent event) {
+    void OnActionIniciarSesion(ActionEvent event) {
+        Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stageActual.close();
 
     }
 
@@ -199,6 +207,17 @@ public class CrearUsuarioViewController {
         tcIdentificacion.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
         tcCorreoElectronico.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
         tcPassword.setCellValueFactory(new PropertyValueFactory<>("password"));
+        tcPassword.setCellFactory(column -> new TableCell<Usuario, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText("•".repeat(item.length())); // puntos en vez de la contraseña
+                }
+            }
+        });
         tcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         tableUsuario.setItems(listaUsuarios);
 

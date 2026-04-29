@@ -32,11 +32,11 @@
             </Text>
             <TextField fx:id="TxtCorreo" layoutX="222.0" layoutY="239.0" prefHeight="26.0" prefWidth="206.0" />
             <TextField fx:id="TxtPassword" layoutX="222.0" layoutY="331.0" prefHeight="26.0" prefWidth="206.0" />
-            <Button fx:id="BtnInicioSesion" layoutX="149.0" layoutY="441.0" mnemonicParsing="false" onAction="#OnActionInicioSesion" text="Iniciar Sesion">
+            <Button fx:id="BtnIngresar" layoutX="135.0" layoutY="454.0" mnemonicParsing="false" onAction="#OnActionIngresar" text="Ingresar">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></Button>
-            <Button fx:id="BtnCrearCuenta" layoutX="344.0" layoutY="441.0" mnemonicParsing="false" onAction="#OnActionCrearCuenta" text="Crear Cuenta">
+            <Button fx:id="BtnCrearCuenta" layoutX="346.0" layoutY="454.0" mnemonicParsing="false" onAction="#OnActionCrearCuenta" text="Crear Cuenta">
                <font>
                   <Font name="Times New Roman Bold" size="14.0" />
                </font></Button>

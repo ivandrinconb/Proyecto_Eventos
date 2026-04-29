@@ -58,7 +58,7 @@
                         <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnVolver" layoutX="483.0" layoutY="250.0" mnemonicParsing="false" onAction="#OnActionVolver" prefHeight="26.0" prefWidth="76.0" text="Volver">
+                  <Button fx:id="btnIniciarSesion" layoutX="483.0" layoutY="250.0" mnemonicParsing="false" onAction="#OnActionIniciarSesion" prefHeight="26.0" prefWidth="109.0" text="Iniciar Sesion">
                      <font>
                         <Font name="Times New Roman Bold" size="14.0" />
                      </font>
