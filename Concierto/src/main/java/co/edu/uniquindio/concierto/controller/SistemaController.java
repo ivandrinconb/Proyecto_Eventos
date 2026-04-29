@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SistemaController {
-    private static SistemaController instans;
+    private static SistemaController instance;
 
     private List<Usuario> listUsuarios;
     private List<Evento> listEventos;
@@ -20,17 +20,33 @@ public class SistemaController {
         listCompras = new ArrayList<>();
     }
     public static SistemaController getInstance() {
-        if (instans == null) {
-            instans = new SistemaController();
+        if (instance == null) {
+            instance = new SistemaController();
 
         }
-        return instans;
+        return instance;
     }
-    // Metdodos basicos para eventos.
+
     public void agregarEvento (Evento evento){
         listEventos.add (evento);
     }
     public List<Evento> getEventos () {
         return listEventos;
     }
+    public void agregarUsuario(Usuario usuario) {
+        listUsuarios.add(usuario);
+    }
+
+    public List<Usuario> getUsuarios() {
+        return listUsuarios;
+    }
+
+    public void agregarCompra(Compra compra) {
+        listCompras.add(compra);
+    }
+
+    public List<Compra> getCompras() {
+        return listCompras;
+    }
+
 }

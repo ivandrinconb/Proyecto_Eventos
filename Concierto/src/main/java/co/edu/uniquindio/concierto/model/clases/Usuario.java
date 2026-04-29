@@ -16,10 +16,20 @@ public class Usuario implements IUsuario {
 
     public Usuario() {}
 
-    public Usuario(String idUsuario, String nombre, String correoElectronico,String password,
-                   String telefono, List<MetodoPago> metodosPago, List<Compra> compras) {
-        this.idUsuario = idUsuario;
+
+    public Usuario(String nombre, String idUsuario, String correoElectronico,String password,
+                   String telefono) {
         this.nombre = nombre;
+        this.idUsuario = idUsuario;
+        this.correoElectronico = correoElectronico;
+        this.password = password;
+        this.telefono = telefono;
+    }
+
+    public Usuario( String nombre, String idUsuario, String correoElectronico,String password,
+                   String telefono, List<MetodoPago> metodosPago, List<Compra> compras) {
+        this.nombre = nombre;
+        this.idUsuario = idUsuario;
         this.correoElectronico = correoElectronico;
         this.password = password;
         this.telefono = telefono;
@@ -27,6 +37,8 @@ public class Usuario implements IUsuario {
         this.compras = compras;
 
     }
+
+
 
     public String getIdUsuario() {
         return idUsuario;
@@ -83,6 +95,7 @@ public class Usuario implements IUsuario {
     public void setCompras(List<Compra> compras) {
         this.compras = compras;
     }
+
 
     @Override
     public String toString() {

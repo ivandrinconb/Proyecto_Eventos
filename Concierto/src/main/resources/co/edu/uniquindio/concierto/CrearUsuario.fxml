@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="647.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.concierto.viewController.CrearUsuarioViewController">
    <children>
       <SplitPane dividerPositions="0.5585651537335284" layoutX="23.0" layoutY="25.0" orientation="VERTICAL" prefHeight="548.0" prefWidth="658.0">
@@ -54,12 +53,22 @@
                      </font>
                   </Label>
                   <TextField fx:id="txtTelefono" layoutX="183.0" layoutY="258.0" prefHeight="26.0" prefWidth="242.0" />
-                  <Button fx:id="btnRegistrar" layoutX="484.0" layoutY="131.0" mnemonicParsing="false" onAction="#OnActionRegistrar" text="Registrar">
+                  <Button fx:id="btnRegistrar" layoutX="483.0" layoutY="82.0" mnemonicParsing="false" onAction="#OnActionRegistrar" text="Registrar">
                      <font>
                         <Font name="Times New Roman Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnVolver" layoutX="484.0" layoutY="179.0" mnemonicParsing="false" onAction="#OnActionVolver" prefHeight="26.0" prefWidth="76.0" text="Volver">
+                  <Button fx:id="btnVolver" layoutX="483.0" layoutY="250.0" mnemonicParsing="false" onAction="#OnActionVolver" prefHeight="26.0" prefWidth="76.0" text="Volver">
+                     <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEliminar" layoutX="484.0" layoutY="138.0" mnemonicParsing="false" onAction="#OnActionEliminar" text="Eliminar">
+                     <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnEditar" layoutX="483.0" layoutY="197.0" mnemonicParsing="false" onAction="#OnActionEditar" prefHeight="26.0" prefWidth="74.0" text="Editar">
                      <font>
                         <Font name="Times New Roman Bold" size="14.0" />
                      </font>
@@ -70,9 +79,9 @@
                <children>
                   <TableView fx:id="tableUsuario" layoutX="14.0" layoutY="23.0" prefHeight="196.0" prefWidth="634.0">
                     <columns>
-                      <TableColumn fx:id="tcNombre" prefWidth="178.39998722076416" text="Nombre " />
+                      <TableColumn fx:id="tcNombre" prefWidth="178.39998722076416" text="Nombre" />
                       <TableColumn fx:id="tcIdentificacion" minWidth="5.60003662109375" prefWidth="87.19998168945312" text="Identificacion" />
-                        <TableColumn fx:id="tcCorreoElectronico" prefWidth="208.79998779296875" text="Correo" />
+                        <TableColumn fx:id="tcCorreoElectronico" prefWidth="208.79998779296875" text="CorreoElectronico" />
                         <TableColumn fx:id="tcPassword" prefWidth="57.60003662109375" text="Password" />
                         <TableColumn fx:id="tcTelefono" prefWidth="104.7999267578125" text="Telefono" />
                     </columns>
