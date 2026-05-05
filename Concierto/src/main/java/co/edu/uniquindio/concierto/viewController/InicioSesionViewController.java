@@ -2,6 +2,7 @@ package co.edu.uniquindio.concierto.viewController;
 
 
 import co.edu.uniquindio.concierto.controller.SistemaController;
+import co.edu.uniquindio.concierto.model.clases.Administrador;
 import co.edu.uniquindio.concierto.model.clases.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,36 +43,51 @@ public class InicioSesionViewController {
         String correo = TxtCorreo.getText();
         String password = TxtPassword.getText();
 
-        if (TxtCorreo.getText().isEmpty() || TxtPassword.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Campos vacíos");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor ingrese correo y contraseña.");
-            alert.showAndWait();
+        if (correo.isEmpty() || password.isEmpty()) {
+            mostrarAlerta("Campos vacíos", "Por favor ingrese correo y contraseña.", Alert.AlertType.WARNING);
             return;
         }
 
-
         Usuario usuario = SistemaController.getInstance().buscarUsuarioPorCredenciales(correo, password);
+        Administrador admin = SistemaController.getInstance().buscarAdministradorPorCredenciales(correo, password);
 
-        if (usuario != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Inicio de sesión exitoso");
-            alert.setHeaderText(null);
-            alert.setContentText("Bienvenido, " + usuario.getNombre());
-            alert.showAndWait();
+        Object persona = (usuario != null) ? usuario : admin;
 
+        if (persona != null) {
+            mostrarAlerta("Inicio de sesión exitoso", "Bienvenido, " +
+                            (persona instanceof Administrador ? ((Administrador) persona).getNombre() : ((Usuario) persona).getNombre()),
+                    Alert.AlertType.INFORMATION);
+
+            try {
+                String fxml = (persona instanceof Administrador)
+                        ? "/co/edu/uniquindio/concierto/menuAdministrador.fxml"
+                        : "/co/edu/uniquindio/concierto/menuUsuario.fxml";
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Menú Principal");
+                stage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error de autenticación");
-            alert.setHeaderText(null);
-            alert.setContentText("Correo o contraseña incorrectos.");
-            alert.showAndWait();
+            mostrarAlerta("Error de autenticación", "Correo o contraseña incorrectos.", Alert.AlertType.ERROR);
         }
-
-
-
     }
+
+    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+
     @FXML
     void OnActionCrearCuenta(ActionEvent event) {
         try {
@@ -97,7 +113,9 @@ public class InicioSesionViewController {
         }
 
 
+
     }
+
 
     @FXML
     void initialize() {
