@@ -1,8 +1,8 @@
-package co.edu.uniquindio.concierto.model.clases;
+package co.edu.uniquindio.concierto.model.patrones.composite;
 
 import java.util.List;
 
-public class Recinto {
+public class Recinto implements ComponenteRecinto {
     private String idRecinto;
     private String nombre;
     private String direccion;
@@ -18,6 +18,26 @@ public class Recinto {
         this.zonas = zonas;
 
     }
+    @Override
+    public void mostrar() {
+        String detalle = "Recinto: " + nombre + " (" + ciudad + ")";
+        System.out.println(detalle); // luego lo reemplazas por actualización en JavaFX
+        for (Zona zona : zonas) {
+            zona.mostrar();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public String getIdRecinto() {
         return idRecinto;
     }

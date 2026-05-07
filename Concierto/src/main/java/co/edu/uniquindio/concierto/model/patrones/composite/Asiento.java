@@ -1,8 +1,8 @@
-package co.edu.uniquindio.concierto.model.clases;
+package co.edu.uniquindio.concierto.model.patrones.composite;
 
 import co.edu.uniquindio.concierto.model.Enums.EstadoAsiento;
 
-public class Asiento {
+public class Asiento implements ComponenteRecinto {
     private String idAsiento;
     private String fila;
     private int numero;
@@ -15,6 +15,24 @@ public class Asiento {
         this.estadoAsiento = estadoAsiento;
 
     }
+    @Override
+    public void mostrar() {
+        // Por ahora solo lógica de texto
+        String detalle = "Asiento: " + fila + numero +
+                " [ID: " + idAsiento + "] Estado: " + estadoAsiento;
+        System.out.println(detalle); // luego lo reemplazas por actualización en JavaFX
+    }
+
+
+
+
+
+
+
+
+
+
+
     public String getIdAsiento() {
         return idAsiento;
     }

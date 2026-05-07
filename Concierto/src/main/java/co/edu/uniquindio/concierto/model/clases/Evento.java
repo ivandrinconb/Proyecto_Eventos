@@ -3,6 +3,8 @@ package co.edu.uniquindio.concierto.model.clases;
 import co.edu.uniquindio.concierto.model.Enums.CategoriaEvento;
 import co.edu.uniquindio.concierto.model.Enums.EstadoEvento;
 import co.edu.uniquindio.concierto.model.interfaces.IEvento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
+import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

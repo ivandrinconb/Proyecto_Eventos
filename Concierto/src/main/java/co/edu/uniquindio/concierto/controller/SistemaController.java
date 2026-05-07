@@ -23,9 +23,9 @@ public class SistemaController {
         listAdministradores = new ArrayList<>();
 
         Administrador admin = new Administrador(
-                "1111",
-                "Admin",
-                "admin@.com",
+                "0000",
+                "Ivan",
+                "ivan@.com",
                 "0000",
                 "3117899169"
         );

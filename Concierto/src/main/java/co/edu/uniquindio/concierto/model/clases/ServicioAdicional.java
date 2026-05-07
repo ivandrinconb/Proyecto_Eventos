@@ -8,9 +8,10 @@ public class ServicioAdicional {
     private String descripcion;
     private double costo;
 
-    public ServicioAdicional(String idServicio, TipoServicioAdicional tipoServicio, String descripcion, double costo) {
-        this.idServicio = idServicio;
-        this.tipoServicio= tipoServicio;
+
+    public ServicioAdicional(String s, TipoServicioAdicional tipoServicio, String descripcion, double costo) {
+        this.idServicio = "S-" + tipoServicio;
+        this.tipoServicio = tipoServicio;
         this.descripcion = descripcion;
         this.costo = costo;
 

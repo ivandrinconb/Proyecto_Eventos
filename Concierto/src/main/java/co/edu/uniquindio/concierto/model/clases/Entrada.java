@@ -2,6 +2,8 @@ package co.edu.uniquindio.concierto.model.clases;
 
 import co.edu.uniquindio.concierto.model.Enums.EstadoEntrada;
 import co.edu.uniquindio.concierto.model.interfaces.IEntrada;
+import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
 
 public class Entrada implements IEntrada {
     private String idEntrada;
@@ -9,6 +11,7 @@ public class Entrada implements IEntrada {
     private Asiento asiento;
     private double precioFinal;
     private EstadoEntrada estadoEntrada;
+
 
     public Entrada (String idEntrada, Zona zona, Asiento asiento, double precioFinal,
                     EstadoEntrada estadoEntrada) {
@@ -72,11 +75,11 @@ public class Entrada implements IEntrada {
 
     @Override
     public String getDescripcion() {
-        return "Entrada Sin Adicionales ";
+        return toString();
     }
 
     @Override
     public double getCosto() {
-        return 100000;
+        return precioFinal;
     }
 }

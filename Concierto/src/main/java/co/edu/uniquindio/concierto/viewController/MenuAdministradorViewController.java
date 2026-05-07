@@ -1,10 +1,16 @@
 package co.edu.uniquindio.concierto.viewController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class MenuAdministradorViewController {
 
@@ -54,6 +60,24 @@ public class MenuAdministradorViewController {
 
     @FXML
     void OnActionGestionarUsuarios(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/CrearUsuario.fxml")
+            );
+            Parent root = loader.load();
+
+            Stage stage = new Stage(); // abre en una nueva ventana
+            stage.setScene(new Scene(root));
+            stage.setTitle("Gestión de Usuarios");
+            stage.show();
+
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo abrir la ventana de gestión de usuarios.");
+            alert.showAndWait();
+        }
 
     }
 

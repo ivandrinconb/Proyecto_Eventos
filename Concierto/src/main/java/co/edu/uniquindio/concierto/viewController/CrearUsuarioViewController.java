@@ -78,9 +78,12 @@ public class CrearUsuarioViewController {
     @FXML
     private TextField txtTelefono;
 
-    private ObservableList<Usuario> listaUsuarios = FXCollections.observableArrayList();
+
     private SistemaController sistemaController = SistemaController.getInstance();
+    private ObservableList<Usuario> listaUsuarios;
+
     private Usuario usuarioEditando = null;
+
 
 
 
@@ -209,37 +212,29 @@ public class CrearUsuarioViewController {
     void OnActionEditar(ActionEvent event) {
         Usuario seleccionado = tableUsuario.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-            // Crear un nuevo usuario con los datos de los TextField
-            Usuario usuarioEditado = new Usuario(
-                    txtNombre.getText(),
-                    txtIdentificacion.getText(),
-                    txtCorreoElectronico.getText(),
-                    txtPassword.getText(),
-                    txtTelefono.getText()
-            );
+            seleccionado.setNombre(txtNombre.getText());
+            seleccionado.setIdUsuario(txtIdentificacion.getText());
+            seleccionado.setCorreoElectronico(txtCorreoElectronico.getText());
+            seleccionado.setPassword(txtPassword.getText());
+            seleccionado.setTelefono(txtTelefono.getText());
 
-            // Eliminar el usuario viejo de ambas listas
-            listaUsuarios.remove(seleccionado);
-            sistemaController.getUsuarios().remove(seleccionado);
-
-            // Agregar el usuario editado
-            listaUsuarios.add(usuarioEditado);
-            sistemaController.agregarUsuario(usuarioEditado);
+            tableUsuario.refresh(); // refresca la tabla para mostrar cambios
 
             alerta(Alert.AlertType.INFORMATION, "Usuario actualizado",
                     "El usuario fue editado correctamente.");
 
-            // Limpiar campos
-            txtNombre.clear();
-            txtIdentificacion.clear();
-            txtCorreoElectronico.clear();
-            txtPassword.clear();
-            txtTelefono.clear();
-
+            limpiarCampos();
         } else {
             alerta(Alert.AlertType.WARNING, "Selección inválida",
                     "Debes seleccionar un usuario en la tabla.");
         }
+    }
+    private void limpiarCampos() {
+        txtNombre.clear();
+        txtIdentificacion.clear();
+        txtCorreoElectronico.clear();
+        txtPassword.clear();
+        txtTelefono.clear();
     }
 
     @FXML
@@ -272,6 +267,11 @@ public class CrearUsuarioViewController {
 
     @FXML
     void initialize() {
+
+        listaUsuarios = FXCollections.observableArrayList(sistemaController.getUsuarios());
+        tableUsuario.setItems(listaUsuarios);
+
+
         tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tcIdentificacion.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
         tcCorreoElectronico.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));
