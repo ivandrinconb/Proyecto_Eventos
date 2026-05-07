@@ -3,7 +3,7 @@ package co.edu.uniquindio.concierto.controller;
 import co.edu.uniquindio.concierto.model.clases.Administrador;
 import co.edu.uniquindio.concierto.model.clases.Compra;
 import co.edu.uniquindio.concierto.model.clases.Evento;
-import co.edu.uniquindio.concierto.model.clases.Usuario;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

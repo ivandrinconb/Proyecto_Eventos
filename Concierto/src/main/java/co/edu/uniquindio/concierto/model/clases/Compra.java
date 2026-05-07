@@ -5,6 +5,7 @@ import co.edu.uniquindio.concierto.model.Enums.TipoMetodoPago;
 import co.edu.uniquindio.concierto.model.Enums.TipoServicioAdicional;
 import co.edu.uniquindio.concierto.model.interfaces.ICompra;
 import co.edu.uniquindio.concierto.model.patrones.factoryMethod.MetodoPagoFactory;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import co.edu.uniquindio.concierto.model.patrones.strategy.IMetodoPago;
 import co.edu.uniquindio.concierto.model.patrones.strategy.ProcesadorPago;
 
@@ -166,5 +167,18 @@ public class Compra implements ICompra {
 
     }
 
+    @Override
+    public void reembolsarCompra() {
+        if (estadoCompra == EstadoCompra.PAGADA || estadoCompra == EstadoCompra.CONFIRMADA) {
+            this.estadoCompra = EstadoCompra.REEMBOLSADA;
+            System.out.println("Compra " + idCompra + " ha sido reembolsada.");
+            // Aquí podrías añadir lógica extra:
+            // - Liberar asiento
+            // - Actualizar saldo del usuario
+            // - Registrar incidencia si aplica
+        } else {
+            System.out.println("No se puede reembolsar una compra en estado " + estadoCompra);
+        }
 
+    }
 }

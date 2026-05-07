@@ -1,8 +1,10 @@
 package co.edu.uniquindio.concierto.model.clases;
 
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
+
 import java.util.List;
 
-public class Administrador extends Usuario{
+public class Administrador extends Usuario {
 
     private String idAdministrador;
     private String nombre;

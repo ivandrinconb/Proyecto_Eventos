@@ -5,6 +5,7 @@ import co.edu.uniquindio.concierto.model.Enums.EstadoEvento;
 import co.edu.uniquindio.concierto.model.interfaces.IEvento;
 import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
 import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -39,6 +40,40 @@ public class Evento implements IEvento {
         this.usuariosAsistentes = new ArrayList<>();
         this.zonas = new ArrayList<>();
     }
+    public void addObserver(Usuario usuario) {
+        usuariosAsistentes.add(usuario);
+    }
+
+    public void removeObserver(Usuario usuario) {
+        usuariosAsistentes.remove(usuario);
+    }
+
+    private void notificarObservers() {
+        for (Usuario u : usuariosAsistentes) {
+            u.actualizar("El evento " + nombre + " cambió a estado: " + estadoEvento);
+        }
+    }
+
+    // Cuando cambie el estado, notificamos
+    public void setEstadoEvento(EstadoEvento nuevoEstado) {
+        this.estadoEvento = nuevoEstado;
+        notificarObservers();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public String getIdEvento() {
         return idEvento;
@@ -92,9 +127,6 @@ public class Evento implements IEvento {
         return estadoEvento;
     }
 
-    public void setEstadoEvento(EstadoEvento estadoEvento) {
-        this.estadoEvento = estadoEvento;
-    }
 
     public String getPoliticas() {
         return politicas;
@@ -167,4 +199,7 @@ public class Evento implements IEvento {
     public void publicarEvento() {
 
     }
+
+
+
 }

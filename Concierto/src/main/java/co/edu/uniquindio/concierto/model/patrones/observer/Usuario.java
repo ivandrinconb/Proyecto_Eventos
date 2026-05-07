@@ -1,11 +1,13 @@
-package co.edu.uniquindio.concierto.model.clases;
+package co.edu.uniquindio.concierto.model.patrones.observer;
 
+import co.edu.uniquindio.concierto.model.clases.Compra;
+import co.edu.uniquindio.concierto.model.clases.MetodoPago;
 import co.edu.uniquindio.concierto.model.interfaces.IUsuario;
 import co.edu.uniquindio.concierto.model.Enums.TipoMetodoPago;
 
 import java.util.List;
 
-public class Usuario implements IUsuario {
+public class Usuario implements IUsuario, Observer {
     private String idUsuario;
     private String nombre;
     private String correoElectronico;
@@ -138,6 +140,8 @@ public class Usuario implements IUsuario {
 
     }
 
+    @Override
+    public void actualizar(String mensaje) {
 
-
+    }
 }

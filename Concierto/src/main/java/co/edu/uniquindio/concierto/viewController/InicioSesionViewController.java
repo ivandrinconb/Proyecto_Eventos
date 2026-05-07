@@ -3,7 +3,7 @@ package co.edu.uniquindio.concierto.viewController;
 
 import co.edu.uniquindio.concierto.controller.SistemaController;
 import co.edu.uniquindio.concierto.model.clases.Administrador;
-import co.edu.uniquindio.concierto.model.clases.Usuario;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

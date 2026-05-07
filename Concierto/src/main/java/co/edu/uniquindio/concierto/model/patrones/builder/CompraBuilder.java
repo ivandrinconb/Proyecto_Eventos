@@ -2,6 +2,7 @@ package co.edu.uniquindio.concierto.model.patrones.builder;
 
 import co.edu.uniquindio.concierto.model.Enums.EstadoCompra;
 import co.edu.uniquindio.concierto.model.clases.*;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
