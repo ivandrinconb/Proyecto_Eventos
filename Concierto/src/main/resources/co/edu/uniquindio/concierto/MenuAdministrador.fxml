@@ -16,12 +16,12 @@
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="164.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panel de Administracion">
+      <Text fill="#4315c1" layoutX="164.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panel de Administracion">
          <font>
             <Font name="Times New Roman Bold" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="217.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccione una opcion para gestionar el sistema ">
+      <Text fill="#4315c1" layoutX="217.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccione una opcion para gestionar el sistema ">
          <font>
             <Font name="Times New Roman Italic" size="14.0" />
          </font>
