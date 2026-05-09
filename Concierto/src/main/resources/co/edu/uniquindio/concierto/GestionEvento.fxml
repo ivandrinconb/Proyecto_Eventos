@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="593.0" prefWidth="727.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.concierto.viewController.GestionEventoViewController">
+   <children>
+      <Text layoutX="21.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion De Eventos">
+         <font>
+            <Font name="Times New Roman Bold" size="24.0" />
+         </font>
+      </Text>
+      <Separator layoutX="14.0" layoutY="45.0" prefHeight="0.0" prefWidth="696.0" />
+      <Text layoutX="43.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="38.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoria:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="51.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ciudad:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="373.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha/Hora:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="399.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="txtNombre" layoutX="100.0" layoutY="80.0" prefHeight="26.0" prefWidth="235.0" />
+      <TextField fx:id="txtCiudad" layoutX="100.0" layoutY="160.0" prefHeight="26.0" prefWidth="235.0" />
+      <ComboBox fx:id="cbEstado" layoutX="452.0" layoutY="121.0" prefHeight="26.0" prefWidth="235.0" />
+      <Button fx:id="btnCrear" layoutX="85.0" layoutY="219.0" mnemonicParsing="false" onAction="#OnActionCrear" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Crear">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="tbtEditar" layoutX="197.0" layoutY="219.0" mnemonicParsing="false" onAction="#OnActionEditar" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #FF9800; -fx-text-fill: white;" text="Editar">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnEliminar" layoutX="312.0" layoutY="219.0" mnemonicParsing="false" onAction="#OnActionEliminar" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #F44336; -fx-text-fill: white;" text="Eliminar">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCambiarEstado" layoutX="427.0" layoutY="219.0" mnemonicParsing="false" onAction="#OnActionCambiarEstado" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: #607D8B; -fx-text-fill: white;" text="Cambiar Estado">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+      <TableView fx:id="tableEvento" layoutX="16.0" layoutY="272.0" prefHeight="297.0" prefWidth="696.0">
+        <columns>
+          <TableColumn fx:id="tcNombre" prefWidth="172.8000144958496" text="Nombre" />
+          <TableColumn fx:id="tcCategoria" minWidth="0.0" prefWidth="146.40003967285156" text="Categoria" />
+            <TableColumn fx:id="tcCiudad" prefWidth="122.39996337890625" text="Ciudad" />
+            <TableColumn fx:id="tcFecha" prefWidth="126.39996337890625" text="Fecha/Hora" />
+            <TableColumn fx:id="tcEstado" prefWidth="132.00006103515625" text="Estado" />
+        </columns>
+      </TableView>
+      <Separator layoutX="14.0" layoutY="255.0" prefHeight="0.0" prefWidth="696.0" />
+      <DatePicker fx:id="dateFechaHora" layoutX="452.0" layoutY="79.0" prefHeight="26.0" prefWidth="136.0" />
+      <Spinner fx:id="spinnerHora" layoutX="596.0" layoutY="79.0" prefHeight="26.0" prefWidth="50.0" />
+      <Spinner fx:id="spinnerMinuto" layoutX="653.0" layoutY="79.0" prefHeight="26.0" prefWidth="50.0" />
+      <ComboBox fx:id="cbCategoria" layoutX="100.0" layoutY="121.0" prefHeight="26.0" prefWidth="235.0" />
+      <Button fx:id="btnBuscar" layoutX="601.0" layoutY="219.0" mnemonicParsing="false" onAction="#OnActionBuscar" prefHeight="26.0" prefWidth="52.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Buscar">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

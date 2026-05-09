@@ -97,7 +97,7 @@ public class CrearUsuarioViewController {
                     .orElse(null);
 
             if (encontrado != null) {
-                // Selecciona el usuario en la tabla
+
                 tableUsuario.getSelectionModel().select(encontrado);
 
                 // Rellena los campos con la información del usuario
@@ -189,23 +189,27 @@ public class CrearUsuarioViewController {
     void OnActionEliminar(ActionEvent event) {
         Usuario seleccionado = tableUsuario.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
+            // Confirmación antes de eliminar
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacion.setTitle("Confirmar eliminación");
+            confirmacion.setHeaderText(null);
+            confirmacion.setContentText("¿Seguro que deseas eliminar al usuario '"
+                    + seleccionado.getNombre() + "'?");
 
-            listaUsuarios.remove(seleccionado);
-            sistemaController.getUsuarios().remove(seleccionado);
+            confirmacion.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    tableUsuario.getItems().remove(seleccionado); // elimina de la lista
+                    tableUsuario.refresh();
+                    limpiarCampos();
 
-            alerta(Alert.AlertType.INFORMATION, "Usuario eliminado",
-                    "Se eliminó el usuario: " + seleccionado.getCorreoElectronico());
+                    alerta(Alert.AlertType.INFORMATION, "Usuario eliminado",
+                            "Se eliminó el usuario: " + seleccionado.getNombre());
+                }
+            });
         } else {
             alerta(Alert.AlertType.WARNING, "Selección inválida",
                     "Debes seleccionar un usuario en la tabla.");
         }
-        txtIdentificacion.clear();
-        txtCorreoElectronico.clear();
-        txtPassword.clear();
-        txtNombre.clear();
-        txtTelefono.clear();
-
-
     }
 
     @FXML
@@ -218,7 +222,7 @@ public class CrearUsuarioViewController {
             seleccionado.setPassword(txtPassword.getText());
             seleccionado.setTelefono(txtTelefono.getText());
 
-            tableUsuario.refresh(); // refresca la tabla para mostrar cambios
+            tableUsuario.refresh();
 
             alerta(Alert.AlertType.INFORMATION, "Usuario actualizado",
                     "El usuario fue editado correctamente.");

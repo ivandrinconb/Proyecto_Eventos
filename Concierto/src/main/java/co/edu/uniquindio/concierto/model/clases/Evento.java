@@ -23,6 +23,7 @@ public class Evento implements IEvento {
     private Recinto recinto;
     private List<Usuario> usuariosAsistentes;
     private List<Zona> zonas;
+    private List<Usuario> observers = new ArrayList<>();
 
 
     public Evento(String idEvento, String nombre, CategoriaEvento categoria, String descripcion,
@@ -40,6 +41,15 @@ public class Evento implements IEvento {
         this.usuariosAsistentes = new ArrayList<>();
         this.zonas = new ArrayList<>();
     }
+
+    public Evento(String nombre, CategoriaEvento categoria, String ciudad, LocalDateTime fechaHora, EstadoEvento estado) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.ciudad = ciudad;
+        this.fechaHora = fechaHora;
+        this.estadoEvento = estado;
+    }
+
     public void addObserver(Usuario usuario) {
         usuariosAsistentes.add(usuario);
     }
@@ -48,17 +58,21 @@ public class Evento implements IEvento {
         usuariosAsistentes.remove(usuario);
     }
 
-    private void notificarObservers() {
-        for (Usuario u : usuariosAsistentes) {
-            u.actualizar("El evento " + nombre + " cambió a estado: " + estadoEvento);
+    public void notificarObservers() {
+        String mensaje = "Evento " + nombre + " ahora está en estado " + estadoEvento;
+        for (Usuario u : observers) {
+            u.actualizar(mensaje);
+
         }
-    }
+        }
 
     // Cuando cambie el estado, notificamos
     public void setEstadoEvento(EstadoEvento nuevoEstado) {
         this.estadoEvento = nuevoEstado;
         notificarObservers();
     }
+
+
 
 
 

@@ -4,6 +4,7 @@ import co.edu.uniquindio.concierto.model.clases.Compra;
 import co.edu.uniquindio.concierto.model.clases.MetodoPago;
 import co.edu.uniquindio.concierto.model.interfaces.IUsuario;
 import co.edu.uniquindio.concierto.model.Enums.TipoMetodoPago;
+import javafx.scene.control.Alert;
 
 import java.util.List;
 
@@ -142,6 +143,10 @@ public class Usuario implements IUsuario, Observer {
 
     @Override
     public void actualizar(String mensaje) {
-
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Notificación de Evento");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }
