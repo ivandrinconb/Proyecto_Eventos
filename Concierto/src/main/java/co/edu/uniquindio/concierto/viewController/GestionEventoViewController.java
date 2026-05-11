@@ -11,6 +11,7 @@ import co.edu.uniquindio.concierto.controller.SistemaController;
 import co.edu.uniquindio.concierto.model.Enums.CategoriaEvento;
 import co.edu.uniquindio.concierto.model.Enums.EstadoEvento;
 import co.edu.uniquindio.concierto.model.clases.Evento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,10 +41,14 @@ public class GestionEventoViewController {
 
     @FXML
     private ComboBox<EstadoEvento> cbEstado;
+    @FXML
+    private ComboBox<Recinto> cbRecinto;
+
 
     @FXML
     private TableView<Evento> tableEvento;
     @FXML private ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
+
 
     @FXML
     private Button tbtEditar;
@@ -62,6 +67,9 @@ public class GestionEventoViewController {
 
     @FXML
     private TableColumn<Evento, String> tcNombre;
+    @FXML
+    private TableColumn<Evento, Recinto> tcRecinto;
+
 
     @FXML
     private ComboBox<CategoriaEvento> cbCategoria;
@@ -137,32 +145,34 @@ public class GestionEventoViewController {
         LocalDate fecha = dateFechaHora.getValue();
         Integer hora = spinnerHora.getValue();
         Integer minuto = spinnerMinuto.getValue();
+        Recinto recintoSeleccionado = cbRecinto.getValue();
 
         if (fecha != null && hora != null && minuto != null
                 && estado != null && categoria != null
+                && recintoSeleccionado != null
                 && !nombre.isEmpty() && !ciudad.isEmpty()) {
 
             LocalDateTime fechaHora = LocalDateTime.of(fecha, LocalTime.of(hora, minuto));
 
-            // 🔎 Validación de duplicados (ciudad + fecha/hora)
-            boolean existe = listaEventos.stream().anyMatch(e ->
-                    e.getCiudad().equalsIgnoreCase(ciudad) &&
-                            e.getFechaHora().equals(fechaHora)
-            );
+            // Validación: mismo recinto, misma fecha/hora
+            boolean existe = listaEventos.stream()
+                    .anyMatch(e -> e.getRecinto().equals(recintoSeleccionado)
+                            && e.getFechaHora().equals(fechaHora));
 
             if (existe) {
                 mostrarAlerta("Duplicado",
-                        "Ya existe un evento en la ciudad " + ciudad +
-                                " en la fecha y hora seleccionada.",
+                        "Ya existe un evento en el recinto " + recintoSeleccionado.getNombre() +
+                                " para la fecha y hora seleccionadas.",
                         Alert.AlertType.ERROR);
                 return;
             }
 
-            Evento nuevo = new Evento(nombre, categoria, ciudad, fechaHora, estado);
+            Evento nuevo = new Evento(nombre, categoria, ciudad, fechaHora, estado, recintoSeleccionado);
             listaEventos.add(nuevo);
             limpiarCampos();
             mostrarAlerta("Registro exitoso",
-                    "Evento registrado: " + nuevo.getNombre(),
+                    "Evento registrado: " + nuevo.getNombre() +
+                            " en el recinto " + recintoSeleccionado.getNombre(),
                     Alert.AlertType.INFORMATION);
 
         } else {
@@ -170,7 +180,6 @@ public class GestionEventoViewController {
                     "Debes llenar todos los campos.",
                     Alert.AlertType.WARNING);
         }
-
     }
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);

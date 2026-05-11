@@ -1,18 +1,23 @@
 package co.edu.uniquindio.concierto.model.patrones.composite;
 
+import co.edu.uniquindio.concierto.model.Enums.TipoZona;
+
 import java.util.List;
+import java.util.UUID;
 
 public class Zona implements ComponenteRecinto {
     private String idZona;
-    private String nombre;
+    private TipoZona tipoZona;
     private int capacidad;
     private double precioBase;
     private List<Asiento> asientos;
+    private Recinto recinto;
 
-    public Zona(String idZona, String nombre, int capacidad,
+
+    public Zona(String idZona,TipoZona tipoZona,  int capacidad,
                 double precioBase,  List<Asiento> asientos) {
-        this.idZona = idZona;
-        this.nombre = nombre;
+        this.idZona = generarIdCorto();
+        this.tipoZona = tipoZona;
         this.capacidad = capacidad;
         this.precioBase = precioBase;
         this.asientos = asientos;
@@ -20,11 +25,14 @@ public class Zona implements ComponenteRecinto {
     }
     @Override
     public void mostrar() {
-        String detalle = "Zona: " + nombre + " (Capacidad: " + capacidad + ", Precio base: " + precioBase + ")";
+        String detalle = "Zona: " +  " (Capacidad: " + capacidad + ", Precio base: " + precioBase + ")";
         System.out.println(detalle); // luego lo reemplazas por actualización en JavaFX
         for (Asiento asiento : asientos) {
             asiento.mostrar();
         }
+    }
+    private String generarIdCorto() {
+        return UUID.randomUUID().toString().substring(0, 5);
     }
 
 
@@ -47,12 +55,7 @@ public class Zona implements ComponenteRecinto {
     public void setIdZona(String idZona) {
         this.idZona = idZona;
     }
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+
     public int getCapacidad() {
         return capacidad;
     }
@@ -72,13 +75,31 @@ public class Zona implements ComponenteRecinto {
         this.asientos = asientos;
     }
 
+    public TipoZona getTipoZona() {
+        return tipoZona;
+    }
+
+    public void setTipoZona(TipoZona tipoZona) {
+        this.tipoZona = tipoZona;
+    }
+
+    public Recinto getRecinto() {
+        return recinto;
+    }
+
+    public void setRecinto(Recinto recinto) {
+        this.recinto = recinto;
+    }
+
     @Override
     public String toString() {
-        return "Zona =" +
-                "idZona=" + idZona + '\'' +
-                " nombre=" + nombre + '\'' +
-                " capacidad=" + capacidad +
-                " precioBase=" + precioBase +
-                " asientos=" + asientos ;
+        return "Zona{" +
+                "idZona='" + idZona + '\'' +
+                ", tipoZona=" + tipoZona +
+                ", capacidad=" + capacidad +
+                ", precioBase=" + precioBase +
+                ", asientos=" + asientos +
+                ", recinto=" + recinto +
+                '}';
     }
 }

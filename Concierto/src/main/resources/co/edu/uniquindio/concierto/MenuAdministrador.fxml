@@ -39,7 +39,7 @@
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnGestionarEventos" contentDisplay="TOP" layoutX="281.0" layoutY="164.0" mnemonicParsing="false" onAction="#OnActionGestionarEventos" prefHeight="117.0" prefWidth="146.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Gestionar Eventos ">
+      <Button fx:id="btnGestionarEventos" contentDisplay="TOP" layoutX="492.0" layoutY="164.0" mnemonicParsing="false" onAction="#OnActionGestionarEventos" prefHeight="117.0" prefWidth="146.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Gestionar Eventos ">
          <graphic>
             <ImageView fitHeight="86.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -51,7 +51,7 @@
             <Font name="Times New Roman Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnGestionarRecintos" contentDisplay="TOP" layoutX="492.0" layoutY="163.0" mnemonicParsing="false" onAction="#OnActionGestionarRecintos" prefHeight="118.0" prefWidth="146.0" style="-fx-background-color: #FF9800; -fx-text-fill: white;" text="Gestionar Recintos">
+      <Button fx:id="btnGestionarRecintos" contentDisplay="TOP" layoutX="280.0" layoutY="164.0" mnemonicParsing="false" onAction="#OnActionGestionarRecintos" prefHeight="118.0" prefWidth="146.0" style="-fx-background-color: #FF9800; -fx-text-fill: white;" text="Gestionar Recintos">
          <graphic>
             <ImageView fitHeight="72.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                <image>

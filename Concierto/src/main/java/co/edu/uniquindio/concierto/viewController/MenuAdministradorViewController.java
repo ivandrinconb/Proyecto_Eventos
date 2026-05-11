@@ -78,6 +78,27 @@ public class MenuAdministradorViewController {
 
     @FXML
     void OnActionGestionarRecintos(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/GestionRecinto.fxml")
+            );
+            Parent root = loader.load();
+            GestionEventoViewController controller = loader.getController();
+            controller.setSistemaController(sistemaController);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Gestión de Evento");
+            stage.show();
+
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo abrir la ventana de gestión de usuarios.");
+            alert.showAndWait();
+        }
+
 
     }
 

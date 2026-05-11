@@ -3,6 +3,7 @@ package co.edu.uniquindio.concierto.model.clases;
 import co.edu.uniquindio.concierto.model.Enums.CategoriaEvento;
 import co.edu.uniquindio.concierto.model.Enums.EstadoEvento;
 import co.edu.uniquindio.concierto.model.interfaces.IEvento;
+import co.edu.uniquindio.concierto.model.patrones.composite.ComponenteRecinto;
 import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
 import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
 import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Evento implements IEvento {
+public class Evento implements IEvento, ComponenteRecinto {
     private String idEvento;
     private String nombre;
     private CategoriaEvento categoria;
@@ -26,9 +27,17 @@ public class Evento implements IEvento {
     private List<Usuario> observers = new ArrayList<>();
 
 
+
+    public Evento(String nombre, CategoriaEvento categoria, String ciudad, LocalDateTime fechaHora, EstadoEvento estado, Recinto recinto) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.ciudad = ciudad;
+        this.fechaHora = fechaHora;
+        this.estadoEvento = estado;
+        this.recinto = recinto;
+    }
     public Evento(String idEvento, String nombre, CategoriaEvento categoria, String descripcion,
-                  String ciudad, LocalDateTime fechaHora, EstadoEvento estadoEvento, String politicas,
-                  Recinto recinto) {
+                  String ciudad, LocalDateTime fechaHora, EstadoEvento estadoEvento, String politicas,Recinto recinto) {
         this.idEvento = idEvento;
         this.nombre = nombre;
         this.categoria = categoria;
@@ -40,14 +49,6 @@ public class Evento implements IEvento {
         this.recinto = recinto;
         this.usuariosAsistentes = new ArrayList<>();
         this.zonas = new ArrayList<>();
-    }
-
-    public Evento(String nombre, CategoriaEvento categoria, String ciudad, LocalDateTime fechaHora, EstadoEvento estado) {
-        this.nombre = nombre;
-        this.categoria = categoria;
-        this.ciudad = ciudad;
-        this.fechaHora = fechaHora;
-        this.estadoEvento = estado;
     }
 
     public void addObserver(Usuario usuario) {
@@ -72,19 +73,10 @@ public class Evento implements IEvento {
         notificarObservers();
     }
 
+    @Override
+    public void mostrar() {
 
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 
@@ -148,6 +140,14 @@ public class Evento implements IEvento {
 
     public void setPoliticas(String politicas) {
         this.politicas = politicas;
+    }
+
+    public List<Usuario> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(List<Usuario> observers) {
+        this.observers = observers;
     }
 
     public Recinto getRecinto() {

@@ -17,10 +17,7 @@ public class Asiento implements ComponenteRecinto {
     }
     @Override
     public void mostrar() {
-        // Por ahora solo lógica de texto
-        String detalle = "Asiento: " + fila + numero +
-                " [ID: " + idAsiento + "] Estado: " + estadoAsiento;
-        System.out.println(detalle); // luego lo reemplazas por actualización en JavaFX
+
     }
 
 

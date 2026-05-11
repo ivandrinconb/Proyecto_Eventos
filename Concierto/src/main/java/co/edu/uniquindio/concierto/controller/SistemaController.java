@@ -3,7 +3,9 @@ package co.edu.uniquindio.concierto.controller;
 import co.edu.uniquindio.concierto.model.clases.Administrador;
 import co.edu.uniquindio.concierto.model.clases.Compra;
 import co.edu.uniquindio.concierto.model.clases.Evento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
 import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public class SistemaController {
     private List<Administrador> listAdministradores;
     private List<Evento> listEventos;
     private List<Compra> listCompras;
+    private List<Recinto> listRecintos;
 
     private SistemaController () {
         listUsuarios = new ArrayList<>();
@@ -43,6 +46,38 @@ public class SistemaController {
 
         }
         return instance;
+    }
+
+    public List<Compra> getListCompras() {
+        return listCompras;
+    }
+
+    public void setListCompras(List<Compra> listCompras) {
+        this.listCompras = listCompras;
+    }
+
+    public List<Evento> getListEventos() {
+        return listEventos;
+    }
+
+    public void setListEventos(List<Evento> listEventos) {
+        this.listEventos = listEventos;
+    }
+
+    public List<Usuario> getListUsuarios() {
+        return listUsuarios;
+    }
+
+    public void setListUsuarios(List<Usuario> listUsuarios) {
+        this.listUsuarios = listUsuarios;
+    }
+
+    public List<Recinto> getListRecintos() {
+        return listRecintos;
+    }
+
+    public void setListRecintos(List<Recinto> listRecintos) {
+        this.listRecintos = listRecintos;
     }
 
     public List<Administrador> getListAdministradores() {
@@ -104,6 +139,7 @@ public class SistemaController {
         listUsuarios.remove(viejo);
         listUsuarios.add(nuevo);
     }
+
 
 
 }

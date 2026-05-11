@@ -1,17 +1,28 @@
 package co.edu.uniquindio.concierto.model.patrones.composite;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Recinto implements ComponenteRecinto {
     private String idRecinto;
     private String nombre;
     private String direccion;
     private String ciudad;
+    private int Capacidad;
     private List<Zona> zonas;
 
-    public Recinto(String idRecinto, String nombre, String direccion,
+    public Recinto( String nombre, String direccion, String ciudad, int capacidad) {
+        this.idRecinto = generarIdCorto();
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.Capacidad = capacidad;
+
+    }
+
+    public Recinto(String nombre, String direccion,
                    String ciudad,  List<Zona> zonas) {
-        this.idRecinto = idRecinto;
+        this.idRecinto = generarIdCorto();
         this.nombre = nombre;
         this.direccion = direccion;
         this.ciudad = ciudad;
@@ -25,6 +36,10 @@ public class Recinto implements ComponenteRecinto {
         for (Zona zona : zonas) {
             zona.mostrar();
         }
+    }
+
+    private String generarIdCorto() {
+        return UUID.randomUUID().toString().substring(0, 5);
     }
 
 
@@ -69,13 +84,23 @@ public class Recinto implements ComponenteRecinto {
         this.zonas = zonas;
     }
 
+    public int getCapacidad() {
+        return Capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        Capacidad = capacidad;
+    }
+
     @Override
     public String toString() {
-        return "Recinto =" +
-                "idRecinto=" + idRecinto + '\'' +
-                " nombre=" + nombre + '\'' +
-                " direccion=" + direccion + '\'' +
-                " ciudad=" + ciudad + '\'' +
-                " zonas=" + zonas ;
+        return "Recinto{" +
+                "idRecinto='" + idRecinto + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                ", Capacidad=" + Capacidad +
+                ", zonas=" + zonas +
+                '}';
     }
 }
