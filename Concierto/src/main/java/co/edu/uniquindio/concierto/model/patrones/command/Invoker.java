@@ -1,16 +1,16 @@
 package co.edu.uniquindio.concierto.model.patrones.command;
 
-import java.util.List;
-
 public class Invoker {
-    private List<Command> historial;
+    private Command command;
 
-    public void ejecutar(Command command) {
-        command.execute();
-        historial.add(command);
+    public void setCommand(Command command) {
+        this.command = command;
     }
 
-    public List<Command> getHistorial() {
-        return historial;
+    // Ejecuta el comando actual
+    public void executeCommand() {
+        if (command != null) {
+            command.execute();
+        }
     }
 }

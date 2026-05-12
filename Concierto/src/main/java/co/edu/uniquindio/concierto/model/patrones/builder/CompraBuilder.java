@@ -1,6 +1,7 @@
 package co.edu.uniquindio.concierto.model.patrones.builder;
 
 import co.edu.uniquindio.concierto.model.Enums.EstadoCompra;
+import co.edu.uniquindio.concierto.model.Enums.TipoMetodoPago;
 import co.edu.uniquindio.concierto.model.clases.*;
 import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 
@@ -12,6 +13,9 @@ public class CompraBuilder {
     private String idCompra;
     private Usuario usuario;
     private Evento evento;
+    private int cantidad;
+    private MetodoPago metodoPago;
+    private TipoMetodoPago tipoMetodoPago;
     private LocalDateTime fechaCreacion;
     private double total;
     private EstadoCompra estadoCompra;
@@ -23,13 +27,30 @@ public class CompraBuilder {
         return this;
     }
 
+
+    public CompraBuilder setTipoMetodoPago(TipoMetodoPago tipoMetodoPago) {
+        this.tipoMetodoPago = tipoMetodoPago;
+        return this;
+    }
+
     public CompraBuilder setUsuario(Usuario usuario) {
         this.usuario = usuario;
         return this;
     }
 
+
     public CompraBuilder setEvento(Evento evento) {
         this.evento = evento;
+        return this;
+    }
+
+    public CompraBuilder setCantidad(int evento) {
+        this.cantidad = cantidad;
+        return this;
+    }
+
+    public CompraBuilder setMetodoPago(String evento) {
+        this.metodoPago = metodoPago;
         return this;
     }
 
@@ -57,6 +78,8 @@ public class CompraBuilder {
                 idCompra,
                 usuario,
                 evento,
+                cantidad,
+                metodoPago != null ? tipoMetodoPago : TipoMetodoPago.TARJETA ,
                 fechaCreacion != null ? fechaCreacion : LocalDateTime.now(),
                 total,
                 estadoCompra != null ? estadoCompra : EstadoCompra.CREADA,
@@ -66,4 +89,6 @@ public class CompraBuilder {
         compra.calcularTotal(); // recalcula el total automáticamente
         return compra;
     }
+
+
 }

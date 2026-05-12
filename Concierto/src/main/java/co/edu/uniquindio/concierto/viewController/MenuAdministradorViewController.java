@@ -51,6 +51,26 @@ public class MenuAdministradorViewController {
 
     @FXML
     void OnActionGestionarCompras(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/GestionCompra.fxml")
+            );
+            Parent root = loader.load();
+            GestionCompraViewController controller = (GestionCompraViewController) loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Gestión de Compras");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo abrir la ventana de gestión de Compras.");
+            alert.showAndWait();
+        }
 
     }
 

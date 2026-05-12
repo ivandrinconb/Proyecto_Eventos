@@ -1,47 +1,39 @@
 package co.edu.uniquindio.concierto.model.clases;
 
 import co.edu.uniquindio.concierto.model.Enums.TipoServicioAdicional;
+import co.edu.uniquindio.concierto.model.patrones.decorator.IEntrada;
+
+import java.util.UUID;
 
 public class ServicioAdicional {
     private String idServicio;
+    private IEntrada entradaDecorada;
     private TipoServicioAdicional tipoServicio;
-    private String descripcion;
-    private double costo;
 
-
-    public ServicioAdicional(String s, TipoServicioAdicional tipoServicio, String descripcion, double costo) {
-        this.idServicio = "S-" + tipoServicio;
+    public ServicioAdicional(TipoServicioAdicional tipoServicio, IEntrada entradaDecorada) {
+        this.idServicio = generarIdCorto();
         this.tipoServicio = tipoServicio;
-        this.descripcion = descripcion;
-        this.costo = costo;
-
+        this.entradaDecorada = entradaDecorada;
     }
+
     public String getIdServicio() {
         return idServicio;
-    }
-    public void setIdServicio(String idServicio) {
-        this.idServicio = idServicio;
     }
 
     public TipoServicioAdicional getTipoServicio() {
         return tipoServicio;
     }
 
-    public void setTipoServicio(TipoServicioAdicional tipoServicio) {
-        this.tipoServicio = tipoServicio;
-    }
 
     public String getDescripcion() {
-        return descripcion;
-    }
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-    public double getCosto() {
-        return costo;
-    }
-    public void setCosto(double costo) {
-        this.costo = costo;
+        return tipoServicio.toString(); // muestra el enum directamente
     }
 
+    public double getCosto() {
+        return entradaDecorada.getCosto(); // muestra el costo acumulado
+    }
+
+    private String generarIdCorto() {
+        return UUID.randomUUID().toString().substring(0, 5);
+    }
 }

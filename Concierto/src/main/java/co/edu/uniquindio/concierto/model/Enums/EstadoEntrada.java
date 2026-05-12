@@ -4,6 +4,6 @@ public enum EstadoEntrada {
     DISPONIBLE,
     RESERVADA,
     VENDIDA,
-    CANCELADA
+    ANULADA, CANCELADA
 
 }

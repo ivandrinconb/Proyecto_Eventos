@@ -1,9 +1,10 @@
 package co.edu.uniquindio.concierto.model.Enums;
 
 public enum TipoServicioAdicional {
+    PARQUEADERO,
     VIP,
-    SEGURO,
-    ESTACIONAMIENTO,
-    ACCESOPREFERENCIAL,
     MERCHANDISING,
+    ACCESOPREFERENCIAL,
+    SEGURO;
+
 }

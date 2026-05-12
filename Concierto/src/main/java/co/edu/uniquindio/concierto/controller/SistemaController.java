@@ -3,6 +3,7 @@ package co.edu.uniquindio.concierto.controller;
 import co.edu.uniquindio.concierto.model.clases.Administrador;
 import co.edu.uniquindio.concierto.model.clases.Compra;
 import co.edu.uniquindio.concierto.model.clases.Evento;
+import co.edu.uniquindio.concierto.model.clases.ServicioAdicional;
 import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
 import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
 import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
@@ -22,6 +23,8 @@ public class SistemaController {
     private List<Recinto> listRecintos;
     private List<Zona> listZonas;
     private List<Asiento> listAsientos;
+    private List<ServicioAdicional> listServicioAdicional;
+
 
     private SistemaController () {
         listUsuarios = new ArrayList<>();
@@ -31,6 +34,7 @@ public class SistemaController {
         listZonas = new ArrayList<>();
         listAsientos = new ArrayList<>();
         listRecintos = new ArrayList<>();
+        listServicioAdicional = new ArrayList<>();
 
         Administrador admin = new Administrador(
                 "0000",
@@ -57,6 +61,14 @@ public class SistemaController {
 
     public static void setInstance(SistemaController instance) {
         SistemaController.instance = instance;
+    }
+
+    public List<ServicioAdicional> getListServicioAdicional() {
+        return listServicioAdicional;
+    }
+
+    public void setListServicioAdicional(List<ServicioAdicional> listServicioAdicional) {
+        this.listServicioAdicional = listServicioAdicional;
     }
 
     public List<Asiento> getListAsientos() {
@@ -134,6 +146,13 @@ public class SistemaController {
     public List<Compra> getCompras() {
         return listCompras;
     }
+    public void agregarServicioAdicional(ServicioAdicional servicio) {
+        listServicioAdicional.add(servicio);
+    }
+
+    public List<ServicioAdicional> getServiciosAdicionales() {
+        return listServicioAdicional;
+    }
 
 
     public Usuario buscarUsuarioPorCredenciales(String correo, String password) {
@@ -178,5 +197,6 @@ public class SistemaController {
     }
 
 
-
+    public void actualizarCompra(Compra compra) {
+    }
 }

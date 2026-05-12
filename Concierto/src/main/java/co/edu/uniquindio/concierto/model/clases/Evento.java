@@ -214,6 +214,8 @@ public class Evento implements IEvento, ComponenteRecinto {
 
     }
 
-
-
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

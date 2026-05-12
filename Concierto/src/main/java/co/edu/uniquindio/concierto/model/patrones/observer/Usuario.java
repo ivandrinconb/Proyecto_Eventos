@@ -102,13 +102,7 @@ public class Usuario implements IUsuario, Observer {
 
     @Override
     public String toString() {
-        return "Usuario =" +
-                "idUsuario=" + idUsuario + '\'' +
-                " nombre=" + nombre + '\'' +
-                " correoElectronico=" + correoElectronico + '\'' +
-                " telefono=" + telefono + '\'' +
-                " metodosPago=" + metodosPago +
-                " compras=" + compras ;
+        return nombre;
     }
 
 

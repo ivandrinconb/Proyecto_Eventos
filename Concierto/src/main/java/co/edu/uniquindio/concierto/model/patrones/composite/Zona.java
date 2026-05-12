@@ -114,4 +114,6 @@ public class Zona implements ComponenteRecinto {
                 ", recinto=" + recinto +
                 '}';
     }
+
+
 }

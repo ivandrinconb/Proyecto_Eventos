@@ -1,18 +1,20 @@
 package co.edu.uniquindio.concierto.model.patrones.decorator;
 
-import co.edu.uniquindio.concierto.model.clases.Compra;
-import co.edu.uniquindio.concierto.model.clases.Entrada;
-import co.edu.uniquindio.concierto.model.interfaces.IEntrada;
-
 public abstract class ServicioAdicionalDecorator implements IEntrada {
     protected IEntrada entrada;
 
-
-
     public ServicioAdicionalDecorator(IEntrada entrada) {
-
-
+        this.entrada = entrada;
     }
 
+    @Override
+    public double getCosto() {
+        return entrada.getCosto();
+    }
+
+    @Override
+    public String getDescripcion() {
+        return entrada.getDescripcion();
+    }
 
 }
