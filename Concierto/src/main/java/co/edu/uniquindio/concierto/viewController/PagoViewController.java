@@ -91,7 +91,7 @@ public class PagoViewController {
                 new ArrayList<>(),
                 new ArrayList<>()
         );
-        compraController.crearCompra(compra);
+        SistemaController.getInstance().agregarCompra(compra);
 
         // Cambiar estado del asiento a VENDIDO si aplica
         if (asiento != null) {

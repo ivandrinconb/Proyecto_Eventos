@@ -117,7 +117,7 @@ public class HistorialComprasViewController {
                     "Por favor selecciona una compra para cancelar.");
             return;
         }
-        compraController.cancelarCompra(seleccionada.getIdCompra());
+        SistemaController.getInstance().getCompras().remove(seleccionada);
         cargarCompras();
         mostrarInfo("Compra cancelada", "La compra fue cancelada exitosamente.");
     }
