@@ -1,7 +1,6 @@
 package co.edu.uniquindio.concierto.viewController;
 
 import co.edu.uniquindio.concierto.controller.SistemaController;
-import co.edu.uniquindio.concierto.controller.UsuarioController;
 import co.edu.uniquindio.concierto.model.clases.MetodoPago;
 import co.edu.uniquindio.concierto.model.clases.Usuario;
 import co.edu.uniquindio.concierto.model.Enums.TipoMetodoPago;
@@ -33,13 +32,11 @@ public class PerfilUsuarioViewController {
 
     private Usuario usuarioActual;
     private SistemaController sistema;
-    private UsuarioController usuarioController;
     private final ObservableList<MetodoPago> metodos = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         sistema = SistemaController.getInstance();
-        usuarioController = new UsuarioController();
 
         cbTipoMetodo.setItems(FXCollections.observableArrayList(TipoMetodoPago.values()));
 
@@ -77,7 +74,6 @@ public class PerfilUsuarioViewController {
         usuarioActual.setNombre(txtNombre.getText());
         usuarioActual.setCorreoElectronico(txtCorreo.getText());
         usuarioActual.setTelefono(txtTelefono.getText());
-        usuarioController.actualizarUsuario(usuarioActual);
         mostrarInfo("Perfil actualizado", "Tu perfil fue actualizado correctamente.");
     }
 
@@ -93,7 +89,8 @@ public class PerfilUsuarioViewController {
                 cbTipoMetodo.getValue(),
                 txtNumeroMetodo.getText()
         );
-        usuarioActual.agregarMetodoPago(nuevo);
+
+        usuarioActual.agregarMetodoPago(nuevo.getTipo());
         metodos.setAll(usuarioActual.getMetodosPago());
         cbTipoMetodo.getSelectionModel().clearSelection();
         txtNumeroMetodo.clear();

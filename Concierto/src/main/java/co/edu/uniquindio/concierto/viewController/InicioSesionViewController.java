@@ -53,14 +53,23 @@ public class InicioSesionViewController {
 
 
         Usuario usuario = SistemaController.getInstance().buscarUsuarioPorCredenciales(correo, password);
-
         if (usuario != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Inicio de sesión exitoso");
             alert.setHeaderText(null);
             alert.setContentText("Bienvenido, " + usuario.getNombre());
             alert.showAndWait();
-
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("/co/edu/uniquindio/concierto/explorarEventos.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage) BtnIngresar.getScene().getWindow();
+                stage.setTitle("Explorar Eventos");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error de autenticación");
@@ -68,6 +77,10 @@ public class InicioSesionViewController {
             alert.setContentText("Correo o contraseña incorrectos.");
             alert.showAndWait();
         }
+
+
+
+
 
 
 
