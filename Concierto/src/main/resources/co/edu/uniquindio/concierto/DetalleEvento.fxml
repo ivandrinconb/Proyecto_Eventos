@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="647.0" prefWidth="699.0"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.concierto.viewController.DetalleEventoViewController">
+    <children>
+        <SplitPane dividerPositions="0.52" layoutX="23.0" layoutY="25.0"
+                   orientation="VERTICAL" prefHeight="548.0" prefWidth="660.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="280.0" prefWidth="660.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="4.0" text="Detalle del Evento">
+                            <font><Font name="Times New Roman Bold" size="17.0"/></font>
+                        </Label>
+                        <Separator layoutX="14.0" layoutY="29.0" prefHeight="0.0" prefWidth="634.0"/>
+                        <Label layoutX="27.0" layoutY="50.0" text="Nombre:">
+                            <font><Font name="Times New Roman" size="14.0"/></font>
+                        </Label>
+                        <Label fx:id="lblNombre" layoutX="183.0" layoutY="50.0">
+                            <font><Font name="Times New Roman Bold" size="14.0"/></font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="85.0" text="Categoria:">
+                            <font><Font name="Times New Roman" size="14.0"/></font>
+                        </Label>
+                        <Label fx:id="lblCategoria" layoutX="183.0" layoutY="85.0">
+                            <font><Font name="Times New Roman" size="14.0"/></font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="120.0" text="Ciudad:">
+                            <font><Font name="Times New Roman" size="14.0"/></font>
+                        </Label>
+                        <Label fx:id="lblCiudad" layoutX="183.0" layoutY="120.0">
+                            <font><Font name="Times New Roman" size="14.0"/></font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="155.0" text="Fecha y hora:">
+                            <font><Font name="Times New Roman" size="14.0"/></font>
+                        </Label>
+                        <Label fx:id="lblFechaHora" layoutX="183.0" layoutY="155.0">
+                            <font><Font name="Times New Roman" size="14.0"/></font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="190.0" text="Descripcion:">
+                            <font><Font name="Times New Roman" size="14.0"/></font>
+                        </Label>
+                        <TextArea fx:id="txtDescripcion" layoutX="183.0" layoutY="185.0"
+                                  prefHeight="60.0" prefWidth="300.0" editable="false" wrapText="true"/>
+                        <Button fx:id="btnComprar" layoutX="510.0" layoutY="80.0"
+                                mnemonicParsing="false" onAction="#OnActionComprar" text="Comprar entrada">
+                            <font><Font name="Times New Roman Bold" size="14.0"/></font>
+                        </Button>
+                        <Button fx:id="btnVolver" layoutX="510.0" layoutY="130.0"
+                                mnemonicParsing="false" onAction="#OnActionVolver" text="Volver">
+                            <font><Font name="Times New Roman Bold" size="14.0"/></font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="660.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="5.0" text="Zonas disponibles:">
+                            <font><Font name="Times New Roman Bold" size="14.0"/></font>
+                        </Label>
+                        <TableView fx:id="tableZonas" layoutX="14.0" layoutY="25.0" prefHeight="200.0" prefWidth="634.0">
+                            <columns>
+                                <TableColumn fx:id="tcNombreZona" prefWidth="150.0" text="Zona"/>
+                                <TableColumn fx:id="tcCapacidadZona" prefWidth="120.0" text="Capacidad"/>
+                                <TableColumn fx:id="tcPrecioZona" prefWidth="120.0" text="Precio base"/>
+                                <TableColumn fx:id="tcDisponiblesZona" prefWidth="120.0" text="Disponibles"/>
+                                <TableColumn fx:id="tcNumeradaZona" prefWidth="124.0" text="Numerada"/>
+                            </columns>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>
