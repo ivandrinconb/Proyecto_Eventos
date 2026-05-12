@@ -70,7 +70,7 @@ public class InicioSesionViewController {
                     MenuAdministradorViewController controller = loader.getController();
 
                 } else {
-                    MenuUsuarioViewController controller = loader.getController();
+
                 }
 
                 Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
