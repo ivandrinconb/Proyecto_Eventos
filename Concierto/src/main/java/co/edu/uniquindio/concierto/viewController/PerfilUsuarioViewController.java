@@ -112,14 +112,18 @@ public class PerfilUsuarioViewController {
     @FXML
     void OnActionVolver(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("/co/edu/uniquindio/concierto/explorarEventos.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/MenuUsuario.fxml"));
+            Parent root = loader.load();
+            MenuUsuarioViewController menuCtrl = loader.getController();
+            menuCtrl.setUsuario(usuarioActual);
             Stage stage = (Stage) tableMetodos.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
