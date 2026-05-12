@@ -33,7 +33,7 @@ public class MenuUsuarioViewController {
     @FXML
     void onComprarEntradas(MouseEvent event) {
         // Va directo a explorar eventos para elegir un evento y comprar
-        navegarA("/co/edu/uniquindio/concierto/explorarEventos.fxml", null);
+        navegarA("/co/edu/uniquindio/concierto/Compra.fxml", null);
     }
 
     @FXML
