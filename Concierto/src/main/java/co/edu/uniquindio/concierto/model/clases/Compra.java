@@ -83,6 +83,13 @@ public class Compra implements ICompra {
 
 
     }
+
+
+
+    public Compra(String string, Usuario usuarioActual, Evento evento, LocalDateTime now, int i, EstadoCompra estadoCompra, ArrayList<Object> objects, ArrayList<Object> objects1) {
+    }
+
+
     public IEntrada getEntrada() {
         return entrada;
     }

@@ -2,9 +2,14 @@ package co.edu.uniquindio.concierto.viewController;
 
 import co.edu.uniquindio.concierto.controller.CompraController;
 import co.edu.uniquindio.concierto.controller.SistemaController;
-import co.edu.uniquindio.concierto.model.clases.*;
+
 import co.edu.uniquindio.concierto.model.Enums.EstadoAsiento;
 import co.edu.uniquindio.concierto.model.Enums.EstadoCompra;
+import co.edu.uniquindio.concierto.model.clases.Compra;
+import co.edu.uniquindio.concierto.model.clases.Evento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,7 +57,7 @@ public class PagoViewController {
         this.servicios = servicios;
 
         lblEvento.setText(evento.getNombre() != null ? evento.getNombre() : "");
-        lblZonaAsiento.setText(zona.getNombre() +
+        lblZonaAsiento.setText(zona.getTipoZona() +
                 (asiento != null ? " / Fila " + asiento.getFila() +
                         " - Asiento " + asiento.getNumero() : " / General"));
         lblServicios.setText(servicios.isEmpty() ? "Ninguno" : servicios);

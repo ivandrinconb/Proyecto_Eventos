@@ -3,7 +3,7 @@ package co.edu.uniquindio.concierto.viewController;
 import co.edu.uniquindio.concierto.controller.CompraController;
 import co.edu.uniquindio.concierto.controller.SistemaController;
 import co.edu.uniquindio.concierto.model.clases.Compra;
-import co.edu.uniquindio.concierto.model.clases.Usuario;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
