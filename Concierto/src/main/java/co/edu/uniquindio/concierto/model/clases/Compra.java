@@ -1,37 +1,123 @@
 package co.edu.uniquindio.concierto.model.clases;
 
 import co.edu.uniquindio.concierto.model.Enums.EstadoCompra;
+import co.edu.uniquindio.concierto.model.Enums.EstadoEntrada;
+import co.edu.uniquindio.concierto.model.Enums.TipoMetodoPago;
 import co.edu.uniquindio.concierto.model.Enums.TipoServicioAdicional;
 import co.edu.uniquindio.concierto.model.interfaces.ICompra;
+import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
+import co.edu.uniquindio.concierto.model.patrones.decorator.EntradaBase;
+import co.edu.uniquindio.concierto.model.patrones.decorator.IEntrada;
+import co.edu.uniquindio.concierto.model.patrones.factoryMethod.MetodoPagoFactory;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
+import co.edu.uniquindio.concierto.model.patrones.strategy.IMetodoPago;
+import co.edu.uniquindio.concierto.model.patrones.strategy.ProcesadorPago;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Compra implements ICompra {
     private String idCompra;
     private Usuario usuario;
     private Evento evento;
+    private IEntrada entrada;
+    private int cantidad;
+    private MetodoPago metodoPago;
+    private TipoMetodoPago tipoMetodoPago;
     private LocalDateTime fechaCreacion;
     private double total;
     private EstadoCompra estadoCompra;
     private List<Entrada> entradas;
     private List<ServicioAdicional> serviciosAdicionales;
 
-    public Compra() {}
+    public Compra(double precioBase) {
+        this.entrada = new EntradaBase(precioBase);
+        this.serviciosAdicionales = new ArrayList<>();
+        this.entradas = new ArrayList<>();
+    }
 
     public Compra(String idCompra, Usuario usuario, Evento evento,
+                  int cantidad,MetodoPago metodoPago,
                   LocalDateTime fechaCreacion, double total, EstadoCompra estadoCompra, List<Entrada> entradas,
                   List<ServicioAdicional> serviciosAdicionales) {
-        this.idCompra = idCompra;
+        this.idCompra = generarIdCorto();
         this.usuario = usuario;
         this.evento = evento;
+        this.cantidad = cantidad;
+        this.metodoPago = metodoPago;
+        this.fechaCreacion = fechaCreacion;
+        this.total = total;
+        this.estadoCompra = estadoCompra;
+        this.serviciosAdicionales = new ArrayList<>();
+        this.entradas= new ArrayList<>();
+
+
+
+    }
+
+
+
+    public Compra(String idEntrada, Zona zona, Asiento asiento, double precioBase, EstadoEntrada estado) {
+
+        this.entrada = new Entrada(idEntrada, zona, asiento, precioBase, estado);
+    }
+
+    public Compra(String idCompra, Usuario usuario, Evento evento, int cantidad, TipoMetodoPago tipoMetodoPago,
+                  LocalDateTime fechaCreacion, double total, EstadoCompra estadoCompra, List<Entrada> entradas,
+                  List<ServicioAdicional> serviciosAdicionales) {
+
+        this.idCompra = generarIdCorto();
+        this.usuario = usuario;
+        this.evento = evento;
+        this.cantidad = cantidad;
+        this.tipoMetodoPago = tipoMetodoPago;
         this.fechaCreacion = fechaCreacion;
         this.total = total;
         this.estadoCompra = estadoCompra;
         this.entradas = entradas;
-        this.serviciosAdicionales = serviciosAdicionales;
+        this.serviciosAdicionales = new ArrayList<>();
+        this.entradas= new ArrayList<>();
+
 
     }
+
+
+
+    public Compra(String string, Usuario usuarioActual, Evento evento, LocalDateTime now, int i, EstadoCompra estadoCompra, ArrayList<Object> objects, ArrayList<Object> objects1) {
+    }
+
+
+    public IEntrada getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(IEntrada entrada) {
+        this.entrada = entrada;
+    }
+
+    private String generarIdCorto() {
+        return UUID.randomUUID().toString().substring(0, 5);
+    }
+
+    public TipoMetodoPago getTipoMetodoPago() {
+        return tipoMetodoPago;
+    }
+
+    public void setTipoMetodoPago(TipoMetodoPago tipoMetodoPago) {
+        this.tipoMetodoPago = tipoMetodoPago;
+    }
+
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
     public String getIdCompra() {
         return idCompra;
     }
@@ -83,6 +169,15 @@ public class Compra implements ICompra {
         this.serviciosAdicionales = serviciosAdicionales;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+
     @Override
     public String toString() {
         return "Compra=" +
@@ -101,16 +196,28 @@ public class Compra implements ICompra {
     public void crearCompra() {
 
     }
+    public void calcularTotal() {
+        double subtotalEntrada = entrada != null ? entrada.getCosto() : 0;
+        double subtotalServicios = serviciosAdicionales.stream()
+                .mapToDouble(ServicioAdicional::getCosto)
+                .sum();
+        this.total = subtotalEntrada + subtotalServicios;
+    }
+
+
 
     @Override
     public void modificarCompra() {
 
     }
 
+
     @Override
     public void cancelarCompra() {
 
     }
+
+
 
     @Override
     public void pagarCompra() {
@@ -120,10 +227,21 @@ public class Compra implements ICompra {
     @Override
     public void consultarDetalleCompra() {
 
+
     }
 
     @Override
     public void agregarServicioAdicional(TipoServicioAdicional tipoServicio) {
 
+
+
     }
+
+    @Override
+    public void reembolsarCompra() {
+
+
+    }
+
+
 }

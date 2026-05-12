@@ -7,6 +7,7 @@ module co.edu.uniquindio.concierto.concierto {
     requires javafx.base;
 
 
+
     opens co.edu.uniquindio.concierto to javafx.fxml;
     exports co.edu.uniquindio.concierto;
 
@@ -21,6 +22,12 @@ module co.edu.uniquindio.concierto.concierto {
 
     opens co.edu.uniquindio.concierto.model.clases to javafx.base;
     exports co.edu.uniquindio.concierto.model.clases;
+    exports co.edu.uniquindio.concierto.model.patrones.composite;
+    opens co.edu.uniquindio.concierto.model.patrones.composite to javafx.base;
+    exports co.edu.uniquindio.concierto.model.patrones.adapter;
+    opens co.edu.uniquindio.concierto.model.patrones.adapter to javafx.base;
+    exports co.edu.uniquindio.concierto.model.patrones.observer;
+    opens co.edu.uniquindio.concierto.model.patrones.observer to javafx.base;
 
 
 }

@@ -1,7 +1,9 @@
 package co.edu.uniquindio.concierto.viewController;
 
+
 import co.edu.uniquindio.concierto.controller.SistemaController;
-import co.edu.uniquindio.concierto.model.clases.Usuario;
+import co.edu.uniquindio.concierto.model.clases.Administrador;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InicioSesionViewController {
+    private SistemaController sistemaController;
 
     @FXML
     private ResourceBundle resources;
@@ -40,67 +43,88 @@ public class InicioSesionViewController {
         String password = TxtPassword.getText();
 
         if (correo.isEmpty() || password.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Campos vacíos");
-            alert.setHeaderText(null);
-            alert.setContentText("Por favor ingrese correo y contraseña.");
-            alert.showAndWait();
+            mostrarAlerta("Campos vacíos", "Por favor ingrese correo y contraseña.", Alert.AlertType.WARNING);
             return;
         }
 
         Usuario usuario = SistemaController.getInstance().buscarUsuarioPorCredenciales(correo, password);
+        Administrador admin = SistemaController.getInstance().buscarAdministradorPorCredenciales(correo, password);
 
-        if (usuario != null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Inicio de sesión exitoso");
-            alert.setHeaderText(null);
-            alert.setContentText("Bienvenido, " + usuario.getNombre());
-            alert.showAndWait();
+        Object persona = (usuario != null) ? usuario : admin;
+
+        if (persona != null) {
+            mostrarAlerta("Inicio de sesión exitoso", "Bienvenido, " +
+                            (persona instanceof Administrador ? ((Administrador) persona).getNombre() : ((Usuario) persona).getNombre()),
+                    Alert.AlertType.INFORMATION);
 
             try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/co/edu/uniquindio/concierto/menuUsuario.fxml"));
+                String fxml = (persona instanceof Administrador)
+                        ? "/co/edu/uniquindio/concierto/menuAdministrador.fxml"
+                        : "/co/edu/uniquindio/concierto/menuUsuario.fxml";
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
                 Parent root = loader.load();
-                MenuUsuarioViewController menuCtrl = loader.getController();
-                menuCtrl.setUsuario(usuario);
-                Stage stage = (Stage) BtnIngresar.getScene().getWindow();
-                stage.setTitle("Menú Principal");
+
+                // 🔹 Aquí está el cambio importante:
+                if (persona instanceof Administrador) {
+                    MenuAdministradorViewController controller = loader.getController();
+
+                } else {
+
+                }
+
+                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
+                stage.setTitle("Menú Principal");
                 stage.show();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error de autenticación");
-            alert.setHeaderText(null);
-            alert.setContentText("Correo o contraseña incorrectos.");
-            alert.showAndWait();
+            mostrarAlerta("Error de autenticación", "Correo o contraseña incorrectos.", Alert.AlertType.ERROR);
         }
     }
+
+    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
 
     @FXML
     void OnActionCrearCuenta(ActionEvent event) {
         try {
+
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/co/edu/uniquindio/concierto/CrearUsuario.fxml")
             );
             Parent root = loader.load();
+
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
             stage.setTitle("Registro de Usuario");
             stage.setScene(new Scene(root));
             stage.show();
+
         } catch (IOException e) {
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("No se pudo abrir la ventana de registros.");
             alert.showAndWait();
         }
+
     }
+
 
     @FXML
     void initialize() {
+
     }
+
 }

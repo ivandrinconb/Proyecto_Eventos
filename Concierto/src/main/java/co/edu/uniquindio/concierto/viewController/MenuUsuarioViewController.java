@@ -1,6 +1,6 @@
 package co.edu.uniquindio.concierto.viewController;
 
-import co.edu.uniquindio.concierto.model.clases.Usuario;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +33,7 @@ public class MenuUsuarioViewController {
     @FXML
     void onComprarEntradas(MouseEvent event) {
         // Va directo a explorar eventos para elegir un evento y comprar
-        navegarA("/co/edu/uniquindio/concierto/explorarEventos.fxml", null);
+        navegarA("/co/edu/uniquindio/concierto/Compra.fxml", null);
     }
 
     @FXML

@@ -1,11 +1,14 @@
-package co.edu.uniquindio.concierto.model.clases;
+package co.edu.uniquindio.concierto.model.patrones.observer;
 
+import co.edu.uniquindio.concierto.model.clases.Compra;
+import co.edu.uniquindio.concierto.model.clases.MetodoPago;
 import co.edu.uniquindio.concierto.model.interfaces.IUsuario;
 import co.edu.uniquindio.concierto.model.Enums.TipoMetodoPago;
+import javafx.scene.control.Alert;
 
 import java.util.List;
 
-public class Usuario implements IUsuario {
+public class Usuario implements IUsuario, Observer {
     private String idUsuario;
     private String nombre;
     private String correoElectronico;
@@ -99,13 +102,7 @@ public class Usuario implements IUsuario {
 
     @Override
     public String toString() {
-        return "Usuario =" +
-                "idUsuario=" + idUsuario + '\'' +
-                " nombre=" + nombre + '\'' +
-                " correoElectronico=" + correoElectronico + '\'' +
-                " telefono=" + telefono + '\'' +
-                " metodosPago=" + metodosPago +
-                " compras=" + compras ;
+        return nombre;
     }
 
 
@@ -138,6 +135,12 @@ public class Usuario implements IUsuario {
 
     }
 
-
-
+    @Override
+    public void actualizar(String mensaje) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Notificación de Evento");
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
 }

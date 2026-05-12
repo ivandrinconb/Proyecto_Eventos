@@ -1,22 +1,34 @@
 package co.edu.uniquindio.concierto.model.clases;
 
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
+
 import java.util.List;
 
-public class Administrador {
+public class Administrador extends Usuario {
 
     private String idAdministrador;
     private String nombre;
-    private String correo;
+    private String correoElectronico;
     private String password;
     private String telefono;
     private List<Evento> eventos;
     private List<Usuario> usuarios;
 
-    public Administrador(String idAdministrador, String nombre, String correo, String password, String telefono,
+    public Administrador(String idAdministrador, String nombre, String correoElectronico, String password, String telefono) {
+        this.idAdministrador = idAdministrador;
+        this.nombre = nombre;
+        this.correoElectronico = correoElectronico;
+        this.password = password;
+        this.telefono = telefono;
+
+
+    }
+
+    public Administrador(String idAdministrador, String nombre, String correoElectronico, String password, String telefono,
                          List<Evento> eventos, List<Usuario> usuarios) {
         this.idAdministrador = idAdministrador;
         this.nombre = nombre;
-        this.correo = correo;
+        this.correoElectronico = correoElectronico;
         this.password = password;
         this.telefono = telefono;
         this.eventos = eventos;
@@ -35,11 +47,11 @@ public class Administrador {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public String getCorreo() {
-        return correo;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
     }
     public String getPassword() {
         return password;

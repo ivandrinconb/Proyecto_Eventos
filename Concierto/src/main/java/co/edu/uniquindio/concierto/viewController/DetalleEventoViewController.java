@@ -1,7 +1,7 @@
 package co.edu.uniquindio.concierto.viewController;
 
 import co.edu.uniquindio.concierto.model.clases.Evento;
-import co.edu.uniquindio.concierto.model.clases.Zona;
+import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,8 +34,8 @@ public class DetalleEventoViewController {
     @FXML
     public void initialize() {
         tcNombreZona.setCellValueFactory(cell ->
-                new SimpleStringProperty(cell.getValue().getNombre() != null ?
-                        cell.getValue().getNombre() : ""));
+                new SimpleStringProperty(cell.getValue().getTipoZona() != null ?
+                        String.valueOf(cell.getValue().getTipoZona()) : ""));
         tcCapacidadZona.setCellValueFactory(cell ->
                 new SimpleStringProperty(String.valueOf(cell.getValue().getCapacidad())));
         tcPrecioZona.setCellValueFactory(cell ->

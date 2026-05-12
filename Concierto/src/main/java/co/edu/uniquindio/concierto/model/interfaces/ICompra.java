@@ -7,6 +7,7 @@ public interface ICompra {
     void modificarCompra();
     void cancelarCompra();
     void pagarCompra();
+    void reembolsarCompra();
     void consultarDetalleCompra();
     void agregarServicioAdicional(TipoServicioAdicional tipoServicio);
 }

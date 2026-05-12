@@ -5,13 +5,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.concierto.controller.SistemaController;
-import co.edu.uniquindio.concierto.model.clases.Usuario;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class CrearUsuarioViewController {
-
+    private final SistemaController sistemaController= SistemaController.getInstance();
 
 
     @FXML
@@ -27,6 +26,9 @@ public class CrearUsuarioViewController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Button btnBuscar;
 
 
     @FXML
@@ -44,6 +46,7 @@ public class CrearUsuarioViewController {
 
     @FXML
     private TableView<Usuario> tableUsuario;
+
 
 
     @FXML
@@ -76,15 +79,43 @@ public class CrearUsuarioViewController {
     @FXML
     private TextField txtTelefono;
 
-    private ObservableList<Usuario> listaUsuarios = FXCollections.observableArrayList();
-    private SistemaController sistemaController = SistemaController.getInstance();
+
+    private ObservableList<Usuario> listaUsuarios;
+
     private Usuario usuarioEditando = null;
 
 
 
 
+    @FXML
+    void OnActionBuscar(ActionEvent event) {
+            String id = txtIdentificacion.getText();
+            Usuario encontrado = sistemaController.getUsuarios()
+                    .stream()
+                    .filter(u -> u.getIdUsuario().equals(id))
+                    .findFirst()
+                    .orElse(null);
+
+            if (encontrado != null) {
+
+                tableUsuario.getSelectionModel().select(encontrado);
+
+                // Rellena los campos con la información del usuario
+                txtNombre.setText(encontrado.getNombre());
+                txtIdentificacion.setText(encontrado.getIdUsuario());
+                txtCorreoElectronico.setText(encontrado.getCorreoElectronico());
+                txtPassword.setText(encontrado.getPassword());
+                txtTelefono.setText(encontrado.getTelefono());
+
+                alerta(Alert.AlertType.INFORMATION, "Usuario encontrado",
+                        "Se encontró el usuario: " + encontrado.getNombre());
+            } else {
+                alerta(Alert.AlertType.WARNING, "No encontrado",
+                        "No existe un usuario con esa identificación.");
+            }
 
 
+    }
 
     @FXML
     void OnActionRegistrar(ActionEvent event) {
@@ -121,24 +152,10 @@ public class CrearUsuarioViewController {
                 txtTelefono.getText()
 
         );
+        listaUsuarios.add(nuevoUsuario);
+        sistemaController.agregarUsuario(nuevoUsuario);
 
-        if (usuarioEditando != null) {
-            // Eliminar el usuario viejo
-            listaUsuarios.remove(usuarioEditando);
-            SistemaController.getInstance().getUsuarios().remove(usuarioEditando);
 
-            // Agregar el nuevo editado
-            listaUsuarios.add(nuevoUsuario);
-            SistemaController.getInstance().agregarUsuario(nuevoUsuario);
-
-            usuarioEditando = null; // salir del modo edición
-            alerta(Alert.AlertType.INFORMATION, "Usuario actualizado", "El usuario fue editado correctamente.");
-        } else {
-            // Registro normal
-            listaUsuarios.add(nuevoUsuario);
-            SistemaController.getInstance().agregarUsuario(nuevoUsuario);
-            alerta(Alert.AlertType.INFORMATION, "Registro exitoso", "Usuario registrado correctamente.");
-        }
 
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -152,6 +169,7 @@ public class CrearUsuarioViewController {
         txtPassword.clear();
         txtNombre.clear();
         txtTelefono.clear();
+
             }
     private void alerta(Alert.AlertType type, String titulo, String msg) {
         Alert a = new Alert(type);
@@ -165,40 +183,63 @@ public class CrearUsuarioViewController {
     void OnActionEliminar(ActionEvent event) {
         Usuario seleccionado = tableUsuario.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-            listaUsuarios.remove(seleccionado);
-            alerta(Alert.AlertType.INFORMATION, "Usuario eliminado",
-                    "Se eliminó el usuario: " + seleccionado.getCorreoElectronico());
+            // Confirmación antes de eliminar
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacion.setTitle("Confirmar eliminación");
+            confirmacion.setHeaderText(null);
+            confirmacion.setContentText("¿Seguro que deseas eliminar al usuario '"
+                    + seleccionado.getNombre() + "'?");
+
+            confirmacion.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    tableUsuario.getItems().remove(seleccionado); // elimina de la lista
+                    tableUsuario.refresh();
+                    limpiarCampos();
+
+                    alerta(Alert.AlertType.INFORMATION, "Usuario eliminado",
+                            "Se eliminó el usuario: " + seleccionado.getNombre());
+                }
+            });
         } else {
             alerta(Alert.AlertType.WARNING, "Selección inválida",
                     "Debes seleccionar un usuario en la tabla.");
         }
-
-
     }
 
     @FXML
     void OnActionEditar(ActionEvent event) {
         Usuario seleccionado = tableUsuario.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-            usuarioEditando = seleccionado;
+            seleccionado.setNombre(txtNombre.getText());
+            seleccionado.setIdUsuario(txtIdentificacion.getText());
+            seleccionado.setCorreoElectronico(txtCorreoElectronico.getText());
+            seleccionado.setPassword(txtPassword.getText());
+            seleccionado.setTelefono(txtTelefono.getText());
 
-            txtNombre.setText(seleccionado.getNombre());
-            txtIdentificacion.setText(seleccionado.getIdUsuario());
-            txtCorreoElectronico.setText(seleccionado.getCorreoElectronico());
-            txtPassword.setText(seleccionado.getPassword());
-            txtTelefono.setText(seleccionado.getTelefono());
+            tableUsuario.refresh();
+
+            alerta(Alert.AlertType.INFORMATION, "Usuario actualizado",
+                    "El usuario fue editado correctamente.");
+
+            limpiarCampos();
         } else {
-            alerta(Alert.AlertType.WARNING, "Selección inválida", "Debes seleccionar un usuario en la tabla.");
+            alerta(Alert.AlertType.WARNING, "Selección inválida",
+                    "Debes seleccionar un usuario en la tabla.");
         }
-
-
+    }
+    private void limpiarCampos() {
+        txtNombre.clear();
+        txtIdentificacion.clear();
+        txtCorreoElectronico.clear();
+        txtPassword.clear();
+        txtTelefono.clear();
     }
 
     @FXML
     void OnActionIniciarSesion(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/co/edu/uniquindio/concierto/inicioSesion.fxml")
+                    getClass().getResource("/co/edu/uniquindio/concierto/InicioSesion.fxml")
             );
             Parent root = loader.load();
 
@@ -224,6 +265,11 @@ public class CrearUsuarioViewController {
 
     @FXML
     void initialize() {
+
+        listaUsuarios = FXCollections.observableArrayList(sistemaController.getUsuarios());
+        tableUsuario.setItems(listaUsuarios);
+
+
         tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tcIdentificacion.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
         tcCorreoElectronico.setCellValueFactory(new PropertyValueFactory<>("correoElectronico"));

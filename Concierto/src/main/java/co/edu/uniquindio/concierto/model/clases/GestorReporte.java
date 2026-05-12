@@ -1,4 +1,0 @@
-package co.edu.uniquindio.concierto.model.clases;
-
-public class GestorReporte { //Singleton
-}

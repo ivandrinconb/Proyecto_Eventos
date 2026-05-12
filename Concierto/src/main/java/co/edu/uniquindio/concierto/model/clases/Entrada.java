@@ -1,7 +1,10 @@
 package co.edu.uniquindio.concierto.model.clases;
 
 import co.edu.uniquindio.concierto.model.Enums.EstadoEntrada;
-import co.edu.uniquindio.concierto.model.interfaces.IEntrada;
+import co.edu.uniquindio.concierto.model.patrones.decorator.IEntrada;
+import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 
 public class Entrada implements IEntrada {
     private String idEntrada;
@@ -9,6 +12,7 @@ public class Entrada implements IEntrada {
     private Asiento asiento;
     private double precioFinal;
     private EstadoEntrada estadoEntrada;
+
 
     public Entrada (String idEntrada, Zona zona, Asiento asiento, double precioFinal,
                     EstadoEntrada estadoEntrada) {
@@ -18,6 +22,11 @@ public class Entrada implements IEntrada {
         this.precioFinal = precioFinal;
         this.estadoEntrada = estadoEntrada;
     }
+
+    public Entrada(Evento evento, Usuario usuario, EstadoEntrada estadoEntrada) {
+    }
+
+
     public String getIdEntrada() {
         return idEntrada;
     }
@@ -51,32 +60,16 @@ public class Entrada implements IEntrada {
 
 
     @Override
-    public void generarEntrada() {
-
-    }
-
-    @Override
-    public void consultarEntradasPorCompra() {
-
-    }
-
-    @Override
-    public void consultarEntradasPorEvento() {
-
-    }
-
-    @Override
-    public void anularEntrada() {
-
-    }
-
-    @Override
     public String getDescripcion() {
-        return "Entrada Sin Adicionales ";
+        return "Entrada " + idEntrada +
+                " | Zona: " + (zona != null ? zona.getTipoZona() : "N/A") +
+                " | Asiento: " + (asiento != null ? asiento.getIdAsiento() : "N/A") +
+                " | Estado: " + estadoEntrada +
+                " | Precio: " + precioFinal;
     }
 
     @Override
     public double getCosto() {
-        return 100000;
+        return precioFinal;
     }
 }

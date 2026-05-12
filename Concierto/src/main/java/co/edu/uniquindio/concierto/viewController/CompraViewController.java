@@ -1,8 +1,12 @@
 package co.edu.uniquindio.concierto.viewController;
 
 import co.edu.uniquindio.concierto.controller.SistemaController;
-import co.edu.uniquindio.concierto.model.clases.*;
+
 import co.edu.uniquindio.concierto.model.Enums.EstadoAsiento;
+import co.edu.uniquindio.concierto.model.clases.Evento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,7 +50,7 @@ public class CompraViewController {
 
         tcZonaEntrada.setCellValueFactory(cell ->
                 new SimpleStringProperty(cbZona.getValue() != null ?
-                        cbZona.getValue().getNombre() : ""));
+                        String.valueOf(cbZona.getValue().getTipoZona()) : ""));
         tcAsientoEntrada.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getFila() + "-" +
                         cell.getValue().getNumero()));
