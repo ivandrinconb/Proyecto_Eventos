@@ -1,6 +1,5 @@
 package co.edu.uniquindio.concierto.viewController;
 
-
 import co.edu.uniquindio.concierto.controller.SistemaController;
 import co.edu.uniquindio.concierto.model.clases.Usuario;
 import javafx.event.ActionEvent;
@@ -19,8 +18,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InicioSesionViewController {
-
-
 
     @FXML
     private ResourceBundle resources;
@@ -42,7 +39,7 @@ public class InicioSesionViewController {
         String correo = TxtCorreo.getText();
         String password = TxtPassword.getText();
 
-        if (TxtCorreo.getText().isEmpty() || TxtPassword.getText().isEmpty()) {
+        if (correo.isEmpty() || password.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Campos vacíos");
             alert.setHeaderText(null);
@@ -51,25 +48,29 @@ public class InicioSesionViewController {
             return;
         }
 
-
         Usuario usuario = SistemaController.getInstance().buscarUsuarioPorCredenciales(correo, password);
+
         if (usuario != null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Inicio de sesión exitoso");
             alert.setHeaderText(null);
             alert.setContentText("Bienvenido, " + usuario.getNombre());
             alert.showAndWait();
+
             try {
                 FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/co/edu/uniquindio/concierto/explorarEventos.fxml"));
+                        getClass().getResource("/co/edu/uniquindio/concierto/menuUsuario.fxml"));
                 Parent root = loader.load();
+                MenuUsuarioViewController menuCtrl = loader.getController();
+                menuCtrl.setUsuario(usuario);
                 Stage stage = (Stage) BtnIngresar.getScene().getWindow();
-                stage.setTitle("Explorar Eventos");
+                stage.setTitle("Menú Principal");
                 stage.setScene(new Scene(root));
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error de autenticación");
@@ -77,44 +78,29 @@ public class InicioSesionViewController {
             alert.setContentText("Correo o contraseña incorrectos.");
             alert.showAndWait();
         }
-
-
-
-
-
-
-
     }
+
     @FXML
     void OnActionCrearCuenta(ActionEvent event) {
         try {
-
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/co/edu/uniquindio/concierto/CrearUsuario.fxml")
             );
             Parent root = loader.load();
-
             Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-
             stage.setTitle("Registro de Usuario");
             stage.setScene(new Scene(root));
             stage.show();
-
         } catch (IOException e) {
-
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText("No se pudo abrir la ventana de registros.");
             alert.showAndWait();
         }
-
-
     }
 
     @FXML
     void initialize() {
-
     }
-
 }
