@@ -3,7 +3,9 @@ package co.edu.uniquindio.concierto.controller;
 import co.edu.uniquindio.concierto.model.clases.Administrador;
 import co.edu.uniquindio.concierto.model.clases.Compra;
 import co.edu.uniquindio.concierto.model.clases.Evento;
+import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
 import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
+import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
 import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.collections.ObservableList;
 
@@ -18,12 +20,17 @@ public class SistemaController {
     private List<Evento> listEventos;
     private List<Compra> listCompras;
     private List<Recinto> listRecintos;
+    private List<Zona> listZonas;
+    private List<Asiento> listAsientos;
 
     private SistemaController () {
         listUsuarios = new ArrayList<>();
         listEventos = new ArrayList<>();
         listCompras = new ArrayList<>();
         listAdministradores = new ArrayList<>();
+        listZonas = new ArrayList<>();
+        listAsientos = new ArrayList<>();
+        listRecintos = new ArrayList<>();
 
         Administrador admin = new Administrador(
                 "0000",
@@ -46,6 +53,26 @@ public class SistemaController {
 
         }
         return instance;
+    }
+
+    public static void setInstance(SistemaController instance) {
+        SistemaController.instance = instance;
+    }
+
+    public List<Asiento> getListAsientos() {
+        return listAsientos;
+    }
+
+    public void setListAsientos(List<Asiento> listAsientos) {
+        this.listAsientos = listAsientos;
+    }
+
+    public List<Zona> getListZonas() {
+        return listZonas;
+    }
+
+    public void setListZonas(List<Zona> listZonas) {
+        this.listZonas = listZonas;
     }
 
     public List<Compra> getListCompras() {
@@ -138,6 +165,16 @@ public class SistemaController {
     public void actualizarUsuario(Usuario viejo, Usuario nuevo) {
         listUsuarios.remove(viejo);
         listUsuarios.add(nuevo);
+    }
+    public void agregarZona(Zona zona) {
+        listZonas.add(zona);
+    }
+
+    public void eliminarZona(Zona zona) {
+        listZonas.remove(zona);
+    }
+    public void agregarRecinto(Recinto recinto) {
+        listRecintos.add(recinto);
     }
 
 

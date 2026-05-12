@@ -20,8 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InicioSesionViewController {
-
-
+    private SistemaController sistemaController;
 
     @FXML
     private ResourceBundle resources;
@@ -65,6 +64,14 @@ public class InicioSesionViewController {
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
                 Parent root = loader.load();
+
+                // 🔹 Aquí está el cambio importante:
+                if (persona instanceof Administrador) {
+                    MenuAdministradorViewController controller = loader.getController();
+
+                } else {
+                    MenuUsuarioViewController controller = loader.getController();
+                }
 
                 Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
@@ -111,8 +118,6 @@ public class InicioSesionViewController {
             alert.setContentText("No se pudo abrir la ventana de registros.");
             alert.showAndWait();
         }
-
-
 
     }
 

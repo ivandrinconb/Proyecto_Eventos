@@ -8,6 +8,7 @@ import co.edu.uniquindio.concierto.controller.SistemaController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 
 public class MenuAdministradorViewController {
     private SistemaController sistemaController;
+
+
 
     @FXML
     private ResourceBundle resources;
@@ -59,7 +62,6 @@ public class MenuAdministradorViewController {
             );
             Parent root = loader.load();
             GestionEventoViewController controller = loader.getController();
-            controller.setSistemaController(sistemaController);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -70,7 +72,7 @@ public class MenuAdministradorViewController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("No se pudo abrir la ventana de gestión de usuarios.");
+            alert.setContentText("No se pudo abrir la ventana de gestión de Eventos.");
             alert.showAndWait();
         }
 
@@ -79,28 +81,36 @@ public class MenuAdministradorViewController {
     @FXML
     void OnActionGestionarRecintos(ActionEvent event) {
         try {
+
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/co/edu/uniquindio/concierto/GestionRecinto.fxml")
             );
             Parent root = loader.load();
-            GestionEventoViewController controller = loader.getController();
-            controller.setSistemaController(sistemaController);
 
+            GestionRecintoViewController controller = loader.getController();
+
+            // 🔹 Obtener la ventana actual (Menú Administrador) y cerrarla
+            Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stageActual.close();
+
+            // 🔹 Abrir la nueva ventana de Recintos
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Gestión de Evento");
+            stage.setTitle("Gestión de Recintos");
             stage.show();
 
-        } catch (IOException e) {
+        } catch (
+                Exception e) {
+            e.printStackTrace(); // muestra el error exacto en consola
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("No se pudo abrir la ventana de gestión de usuarios.");
+            alert.setContentText("No se pudo abrir la ventana de gestión de recintos.");
             alert.showAndWait();
         }
-
-
     }
+
+
 
     @FXML
     void OnActionGestionarUsuarios(ActionEvent event) {
@@ -110,7 +120,9 @@ public class MenuAdministradorViewController {
             );
             Parent root = loader.load();
 
-            Stage stage = new Stage(); // abre en una nueva ventana
+            CrearUsuarioViewController controller = loader.getController();
+
+            Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Gestión de Usuarios");
             stage.show();

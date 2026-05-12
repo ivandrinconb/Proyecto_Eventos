@@ -1,5 +1,6 @@
 package co.edu.uniquindio.concierto.model.patrones.composite;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ public class Recinto implements ComponenteRecinto {
         this.direccion = direccion;
         this.ciudad = ciudad;
         this.Capacidad = capacidad;
+        this.zonas = new ArrayList<>();
 
     }
 
@@ -26,7 +28,7 @@ public class Recinto implements ComponenteRecinto {
         this.nombre = nombre;
         this.direccion = direccion;
         this.ciudad = ciudad;
-        this.zonas = zonas;
+        this.zonas = (zonas != null) ? zonas : new ArrayList<>();
 
     }
     @Override
@@ -40,6 +42,10 @@ public class Recinto implements ComponenteRecinto {
 
     private String generarIdCorto() {
         return UUID.randomUUID().toString().substring(0, 5);
+    }
+    @Override
+    public String toString() {
+        return nombre;
     }
 
 
@@ -77,9 +83,11 @@ public class Recinto implements ComponenteRecinto {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
+
     public List<Zona> getZonas() {
         return zonas;
     }
+
     public void setZonas(List<Zona> zonas) {
         this.zonas = zonas;
     }
@@ -92,15 +100,10 @@ public class Recinto implements ComponenteRecinto {
         Capacidad = capacidad;
     }
 
-    @Override
-    public String toString() {
-        return "Recinto{" +
-                "idRecinto='" + idRecinto + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", ciudad='" + ciudad + '\'' +
-                ", Capacidad=" + Capacidad +
-                ", zonas=" + zonas +
-                '}';
+
+
+    public void agregarComponente(Zona zona) {
+        zonas.add(zona);
+
     }
 }

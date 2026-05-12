@@ -12,6 +12,8 @@ import co.edu.uniquindio.concierto.model.Enums.CategoriaEvento;
 import co.edu.uniquindio.concierto.model.Enums.EstadoEvento;
 import co.edu.uniquindio.concierto.model.clases.Evento;
 import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,9 +22,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class GestionEventoViewController {
-    private SistemaController sistemaController;
+    private final SistemaController sistemaController = SistemaController.getInstance();
 
-    @FXML
+        @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -47,7 +49,8 @@ public class GestionEventoViewController {
 
     @FXML
     private TableView<Evento> tableEvento;
-    @FXML private ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
+    @FXML
+    private ObservableList<Evento> listaEventos = FXCollections.observableArrayList();
 
 
     @FXML
@@ -68,8 +71,7 @@ public class GestionEventoViewController {
     @FXML
     private TableColumn<Evento, String> tcNombre;
     @FXML
-    private TableColumn<Evento, Recinto> tcRecinto;
-
+    private TableColumn<Evento, String> tcRecinto;
 
     @FXML
     private ComboBox<CategoriaEvento> cbCategoria;
@@ -169,6 +171,7 @@ public class GestionEventoViewController {
 
             Evento nuevo = new Evento(nombre, categoria, ciudad, fechaHora, estado, recintoSeleccionado);
             listaEventos.add(nuevo);
+            sistemaController.getEventos().add(nuevo);
             limpiarCampos();
             mostrarAlerta("Registro exitoso",
                     "Evento registrado: " + nuevo.getNombre() +
@@ -301,12 +304,23 @@ public class GestionEventoViewController {
             }
         });
         tcEstado.setCellValueFactory(new PropertyValueFactory<>("estadoEvento"));
+
+        // 🔹 Mostrar nombre del recinto
+        tcRecinto.setCellValueFactory(cellData ->
+                new ReadOnlyStringWrapper(cellData.getValue().getRecinto().getNombre())
+        );
+
         spinnerHora.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12));
         spinnerMinuto.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
 
         tableEvento.setItems(listaEventos);
         cbEstado.setItems(FXCollections.observableArrayList(EstadoEvento.values()));
         cbCategoria.setItems(FXCollections.observableArrayList(CategoriaEvento.values()));
+
+
+        cbRecinto.setItems(FXCollections.observableArrayList(
+                SistemaController.getInstance().getListRecintos()
+        ));
 
         tableEvento.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
             if (newSel != null) {
@@ -317,14 +331,11 @@ public class GestionEventoViewController {
                 spinnerHora.getValueFactory().setValue(newSel.getFechaHora().getHour());
                 spinnerMinuto.getValueFactory().setValue(newSel.getFechaHora().getMinute());
                 cbEstado.setValue(newSel.getEstadoEvento());
+                cbRecinto.setValue(newSel.getRecinto()); // 🔹 también cargar recinto
             }
         });
-
-
     }
-    public void setSistemaController(SistemaController sistemaController) {
-        this.sistemaController = sistemaController;
-    }
+
 
 }
 

@@ -19,9 +19,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class GestionRecintoViewController {
+    private SistemaController sistemaController;
+    private Recinto recinto;
     private ObservableList<Recinto> listaRecintos = FXCollections.observableArrayList();
 
-    @FXML
+        @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -74,6 +76,7 @@ public class GestionRecintoViewController {
     @FXML
     private TextField txtNombre;
 
+
     @FXML
     void OnActionBuscar(ActionEvent event) {
         String nombre = txtNombre.getText();
@@ -85,10 +88,9 @@ public class GestionRecintoViewController {
                 (capacidad != null && capacidad > 0);
 
         if (!algunCampoLleno) {
-            mostrarAlerta("Campos vacíos", "Debes llenar al menos un campo para realizar la búsqueda.");
+            mostrarAlerta("Campos vacíos", "Debes llenar al menos un campo para realizar la búsqueda.", Alert.AlertType.INFORMATION);
             return;
         }
-
 
 
         ObservableList<Recinto> filtrados = listaRecintos.filtered(r -> {
@@ -111,7 +113,7 @@ public class GestionRecintoViewController {
             txtCiudad.setText(encontrado.getCiudad());
             spinnerCapacidad.getValueFactory().setValue(encontrado.getCapacidad());
         } else {
-            mostrarAlerta("Sin resultados", "No se encontró ningún recinto con esos criterios.");
+            mostrarAlerta("Sin resultados", "No se encontró ningún recinto con esos criterios.", Alert.AlertType.INFORMATION);
         }
 
     }
@@ -125,7 +127,7 @@ public class GestionRecintoViewController {
 
 
         if (nombre.isEmpty() || direccion.isEmpty() || ciudad.isEmpty() || capacidad == null || capacidad <= 0) {
-            mostrarAlerta("Error", "Todos los campos son obligatorios y la capacidad debe ser mayor a 0.");
+            mostrarAlerta("Error", "Todos los campos son obligatorios y la capacidad debe ser mayor a 0.", Alert.AlertType.ERROR);
             return;
         }
 
@@ -135,21 +137,23 @@ public class GestionRecintoViewController {
                         && r.getCiudad().equalsIgnoreCase(ciudad));
 
         if (existe) {
-            mostrarAlerta("Duplicado", "Ya existe un recinto con ese nombre en la ciudad " + ciudad + ".");
+            mostrarAlerta("Duplicado", "Ya existe un recinto con ese nombre en la ciudad " + ciudad + ".", Alert.AlertType.ERROR);
             return;
         }
 
 
         Recinto nuevoRecinto = new Recinto(nombre, direccion, ciudad, capacidad);
         listaRecintos.add(nuevoRecinto);
+        SistemaController.getInstance().agregarRecinto(nuevoRecinto);
         tableRecinto.refresh();
 
-        mostrarAlerta("Éxito", "Recinto agregado correctamente con ID: " + nuevoRecinto.getIdRecinto());
+        mostrarAlerta("Éxito", "Recinto agregado correctamente con ID: " + nuevoRecinto.getIdRecinto(), Alert.AlertType.INFORMATION);
         limpiarCampos();
 
     }
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+
+    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
@@ -186,7 +190,7 @@ public class GestionRecintoViewController {
                 if (existe) {
                     mostrarAlerta("Duplicado",
                             "Ya existe un recinto con el nombre " + nombre +
-                                    " en la ciudad " + ciudad);
+                                    " en la ciudad " + ciudad, Alert.AlertType.INFORMATION);
                     return;
                 }
                 seleccionado.setNombre(nombre);
@@ -198,15 +202,15 @@ public class GestionRecintoViewController {
                 limpiarCampos();
 
                 mostrarAlerta("Recinto actualizado",
-                        "El recinto fue editado correctamente (ID: " + seleccionado.getIdRecinto() + ")");
+                        "El recinto fue editado correctamente (ID: " + seleccionado.getIdRecinto() + ")", Alert.AlertType.CONFIRMATION);
 
             } else {
                 mostrarAlerta("Campos vacíos",
-                        "Debes llenar todos los campos y la capacidad debe ser mayor a 0.");
+                        "Debes llenar todos los campos y la capacidad debe ser mayor a 0.", Alert.AlertType.ERROR);
             }
         } else {
             mostrarAlerta("Selección inválida",
-                    "Debes seleccionar un recinto en la tabla o buscarlo primero.");
+                    "Debes seleccionar un recinto en la tabla o buscarlo primero.", Alert.AlertType.ERROR);
         }
 
     }
@@ -231,19 +235,19 @@ public class GestionRecintoViewController {
                 limpiarCampos();
 
                 mostrarAlerta("Recinto eliminado",
-                        "El recinto fue eliminado correctamente.");
+                        "El recinto fue eliminado correctamente.", Alert.AlertType.CONFIRMATION);
             }
         } else {
             mostrarAlerta("Selección inválida",
-                    "Debes seleccionar un recinto en la tabla o buscarlo primero.");
+                    "Debes seleccionar un recinto en la tabla o buscarlo primero.", Alert.AlertType.WARNING);
         }
 
     }
+
     @FXML
     void OnActionMostrarTodos(ActionEvent event) {
         tableRecinto.setItems(listaRecintos);
     }
-
 
 
     @FXML
@@ -290,23 +294,30 @@ public class GestionRecintoViewController {
             }
         });
     }
+
     private void abrirVentanaZonas(Recinto recinto) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("GestionarZonas.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/concierto/GestionZonas.fxml"));
             Parent root = loader.load();
 
-            GestionZonasViewController controller = loader.getController();
-            controller.setRecinto(recinto);
+
+            GestionZonaViewController controlador = loader.getController();
+
+            controlador.setRecinto(recinto);
 
             Stage stage = new Stage();
-            stage.setTitle("Gestionar Zonas - " + recinto.getNombre());
+            stage.setTitle("Gestión de Zonas - " + recinto.getNombre());
             stage.setScene(new Scene(root));
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta("Error", "No se pudo abrir la ventana de Zonas.");
+            mostrarAlerta("Error", "No se pudo abrir la ventana de Zonas.", Alert.AlertType.ERROR);
         }
     }
-
-
 }
+
+
+
+

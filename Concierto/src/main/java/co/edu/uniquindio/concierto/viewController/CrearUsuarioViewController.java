@@ -18,7 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class CrearUsuarioViewController {
-
+    private final SistemaController sistemaController= SistemaController.getInstance();
 
 
     @FXML
@@ -46,6 +46,7 @@ public class CrearUsuarioViewController {
 
     @FXML
     private TableView<Usuario> tableUsuario;
+
 
 
     @FXML
@@ -79,7 +80,6 @@ public class CrearUsuarioViewController {
     private TextField txtTelefono;
 
 
-    private SistemaController sistemaController = SistemaController.getInstance();
     private ObservableList<Usuario> listaUsuarios;
 
     private Usuario usuarioEditando = null;
@@ -116,12 +116,6 @@ public class CrearUsuarioViewController {
 
 
     }
-
-
-
-
-
-
 
     @FXML
     void OnActionRegistrar(ActionEvent event) {
