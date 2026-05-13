@@ -4,6 +4,7 @@ import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -32,8 +33,33 @@ public class MenuUsuarioViewController {
 
     @FXML
     void onComprarEntradas(MouseEvent event) {
-        // Va directo a explorar eventos para elegir un evento y comprar
-        navegarA("/co/edu/uniquindio/concierto/Compra.fxml", null);
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/ExplorarEventos.fxml")
+            );
+            Parent root = loader.load();
+
+
+            // 🔹 Obtener la ventana actual (Menú Administrador) y cerrarla
+            Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stageActual.close();
+
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Compras");
+            stage.show();
+
+        } catch (
+                Exception e) {
+            e.printStackTrace(); // muestra el error exacto en consola
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo abrir la ventana de gestión de recintos.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

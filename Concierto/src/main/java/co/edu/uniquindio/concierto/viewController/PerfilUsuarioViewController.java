@@ -2,7 +2,7 @@ package co.edu.uniquindio.concierto.viewController;
 
 import co.edu.uniquindio.concierto.controller.SistemaController;
 import co.edu.uniquindio.concierto.model.clases.MetodoPago;
-import co.edu.uniquindio.concierto.model.clases.Usuario;
+import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import co.edu.uniquindio.concierto.model.Enums.TipoMetodoPago;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

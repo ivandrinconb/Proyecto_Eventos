@@ -128,7 +128,7 @@ public class ExplorarEventosViewController {
     void OnActionVolver(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(
-                    getClass().getResource("/co/edu/uniquindio/concierto/inicioSesion.fxml"));
+                    getClass().getResource("/co/edu/uniquindio/concierto/MenuUsuario.fxml"));
             Stage stage = (Stage) tableEventos.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {

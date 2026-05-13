@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -35,12 +36,14 @@ public class DetalleEventoViewController {
     public void initialize() {
         tcNombreZona.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getTipoZona() != null ?
-                        String.valueOf(cell.getValue().getTipoZona()) : ""));
+                        cell.getValue().getTipoZona().toString() : ""));
+
         tcCapacidadZona.setCellValueFactory(cell ->
                 new SimpleStringProperty(String.valueOf(cell.getValue().getCapacidad())));
+
         tcPrecioZona.setCellValueFactory(cell ->
                 new SimpleStringProperty("$ " + cell.getValue().getPrecioBase()));
-        // Disponibilidad = capacidad - asientos ocupados
+
         tcDisponiblesZona.setCellValueFactory(cell -> {
             Zona z = cell.getValue();
             int ocupados = 0;
@@ -52,6 +55,7 @@ public class DetalleEventoViewController {
             }
             return new SimpleStringProperty(String.valueOf(z.getCapacidad() - ocupados));
         });
+
         tcNumeradaZona.setCellValueFactory(cell ->
                 new SimpleStringProperty(cell.getValue().getAsientos() != null &&
                         !cell.getValue().getAsientos().isEmpty() ? "Sí" : "No"));
@@ -62,34 +66,48 @@ public class DetalleEventoViewController {
     public void setEvento(Evento evento) {
         this.evento = evento;
         lblNombre.setText(evento.getNombre() != null ? evento.getNombre() : "");
-        lblCategoria.setText(evento.getCategoria() != null ?
-                evento.getCategoria().toString() : "");
+        lblCategoria.setText(evento.getCategoria() != null ? evento.getCategoria().toString() : "");
         lblCiudad.setText(evento.getCiudad() != null ? evento.getCiudad() : "");
-        // LocalDateTime -> String
-        lblFechaHora.setText(evento.getFechaHora() != null ?
-                evento.getFechaHora().toString() : "");
-        txtDescripcion.setText(evento.getDescripcion() != null ?
-                evento.getDescripcion() : "");
+        lblFechaHora.setText(evento.getFechaHora() != null ? evento.getFechaHora().toString() : "");
+        txtDescripcion.setText(evento.getDescripcion() != null ? evento.getDescripcion() : "");
 
-        // Zonas directo del Evento (no del recinto)
-        if (evento.getZonas() != null) {
-            zonas.setAll(evento.getZonas());
+        // 🔹 Aquí cargas las zonas en la tabla
+        if (evento.getRecinto() != null && evento.getRecinto().getZonas() != null) {
+            zonas.setAll(evento.getRecinto().getZonas());
+            tableZonas.setItems(zonas);
+            tableZonas.refresh();
         }
     }
 
     @FXML
     void OnActionComprar(ActionEvent event) {
-        if (this.evento == null) return;
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/co/edu/uniquindio/concierto/compra.fxml"));
-            Parent root = loader.load();
-            CompraViewController ctrl = loader.getController();
-            ctrl.setEvento(this.evento);
-            Stage stage = (Stage) tableZonas.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (Exception e) {
-            e.printStackTrace();
+        {
+            Zona seleccionada = tableZonas.getSelectionModel().getSelectedItem();
+            if (seleccionada == null) {
+                new Alert(Alert.AlertType.WARNING, "Debes seleccionar una zona antes de comprar.").showAndWait();
+                return;
+            }
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/concierto/Compra.fxml"));
+                Parent root = loader.load();
+
+                CompraViewController controller = loader.getController();
+                controller.setEvento(evento);
+                controller.setZona(seleccionada);
+
+                Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stageActual.close();
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Compra");
+                stage.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                new Alert(Alert.AlertType.ERROR, "No se pudo abrir la ventana de Compras.").showAndWait();
+            }
         }
     }
 

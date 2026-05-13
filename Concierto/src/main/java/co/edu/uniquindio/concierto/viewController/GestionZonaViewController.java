@@ -23,62 +23,42 @@ import javafx.stage.Stage;
 public class GestionZonaViewController {
     private Recinto recinto;
     @FXML private ObservableList<Zona> listaZonas = FXCollections.observableArrayList();
-    private SistemaController sistemaController;
+    private SistemaController sistemaController = SistemaController.getInstance();
 
     public void setSistemaController(SistemaController sistemaController) {
         this.sistemaController = sistemaController;
-
     }
 
-
-
-
-
-        @FXML
+    @FXML
     private ResourceBundle resources;
-
     @FXML
     private URL location;
-
     @FXML
     private Button btnBuscar;
-
     @FXML
     private Button btnCrear;
-
     @FXML
     private Button btnEliminar;
-
     @FXML
     private Button btnMostrarTodos;
-
     @FXML
     private TableView<Zona> tableZona;
-
     @FXML
     private ComboBox<TipoZona> cbTipoZona;
-
     @FXML
     private Spinner<Integer> spinnerCapacidad;
-
     @FXML
     private Button tbtEditar;
-
     @FXML
     private TableColumn<Zona, Void> tcAsientos;
-
     @FXML
     private TableColumn<Zona, String> tcCapacidad;
-
     @FXML
     private TableColumn<Zona, String> tcIdZona;
-
     @FXML
     private TableColumn<Zona, String> tcPrecioBase;
-
     @FXML
     private TableColumn<Zona, TipoZona> tcTipo;
-
     @FXML
     private TextField txtPrecioBase;
 

@@ -100,5 +100,10 @@
          </font>
       </Button>
       <Separator layoutX="21.0" layoutY="463.0" prefHeight="3.0" prefWidth="681.0" />
+      <Button fx:id="btnCerrarSesion" layoutX="596.0" layoutY="105.0" mnemonicParsing="false" onAction="#OnActionCerrarSesion" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Cerrar Sesion">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

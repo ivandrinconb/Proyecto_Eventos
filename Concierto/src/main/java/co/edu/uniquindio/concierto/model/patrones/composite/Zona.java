@@ -11,6 +11,7 @@ public class Zona implements ComponenteRecinto {
     private TipoZona tipoZona;
     private int capacidad;
     private double precioBase;
+    private Asiento asiento;
     private List<Asiento> asientos;
     private Recinto recinto;
 
@@ -101,6 +102,14 @@ public class Zona implements ComponenteRecinto {
 
     public void setRecinto(Recinto recinto) {
         this.recinto = recinto;
+    }
+
+    public Asiento getAsiento() {
+        return asiento;
+    }
+
+    public void setAsiento(Asiento asiento) {
+        this.asiento = asiento;
     }
 
     @Override

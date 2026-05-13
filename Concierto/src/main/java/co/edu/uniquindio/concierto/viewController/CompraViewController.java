@@ -22,6 +22,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompraViewController {
+    private Zona zonaSeleccionada;
+    public void setZona(Zona zona) {
+        this.zonaSeleccionada = zona;
+
+        // Mostrar solo la zona seleccionada en el ComboBox
+        cbZona.setItems(FXCollections.observableArrayList(zona));
+        cbZona.getSelectionModel().select(zona);
+
+        // Llenar asientos disponibles
+        if (zona.getAsientos() != null) {
+            List<Asiento> disponibles = zona.getAsientos().stream()
+                    .filter(a -> a.getEstadoAsiento() == EstadoAsiento.DISPONIBLE)
+                    .toList();
+            cbAsiento.setItems(FXCollections.observableArrayList(disponibles));
+        }
+
+        // Mostrar precio base
+        lblTotal.setText("Precio base: $ " + zona.getPrecioBase());
+    }
 
     @FXML private ComboBox<Zona> cbZona;
     @FXML private ComboBox<Asiento> cbAsiento;
@@ -47,6 +66,8 @@ public class CompraViewController {
     @FXML
     public void initialize() {
         sistema = SistemaController.getInstance();
+
+
 
         tcZonaEntrada.setCellValueFactory(cell ->
                 new SimpleStringProperty(cbZona.getValue() != null ?

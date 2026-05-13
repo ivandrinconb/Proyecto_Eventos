@@ -2,6 +2,8 @@ package co.edu.uniquindio.concierto.viewController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import co.edu.uniquindio.concierto.controller.SistemaController;
@@ -14,9 +16,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class MenuAdministradorViewController {
     private SistemaController sistemaController;
+
+    @FXML
+    private Button btnCerrarSesion;
+
 
 
 
@@ -43,6 +50,40 @@ public class MenuAdministradorViewController {
 
     @FXML
     private Button btnVerReportes;
+
+    @FXML
+    void OnActionCerrarSesion(ActionEvent event) {
+        try {
+            List<Window> ventanas = new ArrayList<>(Window.getWindows());
+            for (Window window : ventanas) {
+                if (window instanceof Stage) {
+                    ((Stage) window).close();
+                }
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/concierto/InicioSesion.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Inicio");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo volver al Inicio.", Alert.AlertType.ERROR);
+        }
+
+
+    }
+    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
+    }
+
 
     @FXML
     void OnActionGenerarIncidencias(ActionEvent event) {
