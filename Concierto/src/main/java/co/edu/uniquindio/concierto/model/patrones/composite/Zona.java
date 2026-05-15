@@ -114,14 +114,7 @@ public class Zona implements ComponenteRecinto {
 
     @Override
     public String toString() {
-        return "Zona{" +
-                "idZona='" + idZona + '\'' +
-                ", tipoZona=" + tipoZona +
-                ", capacidad=" + capacidad +
-                ", precioBase=" + precioBase +
-                ", asientos=" + asientos +
-                ", recinto=" + recinto +
-                '}';
+        return "" + tipoZona;
     }
 
 

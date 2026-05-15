@@ -6,11 +6,15 @@ import co.edu.uniquindio.concierto.controller.SistemaController;
 import co.edu.uniquindio.concierto.model.Enums.EstadoAsiento;
 import co.edu.uniquindio.concierto.model.Enums.EstadoCompra;
 import co.edu.uniquindio.concierto.model.clases.Compra;
+import co.edu.uniquindio.concierto.model.clases.Entrada;
 import co.edu.uniquindio.concierto.model.clases.Evento;
+import co.edu.uniquindio.concierto.model.clases.ServicioAdicional;
 import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
 import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
 import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
+
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,12 +38,16 @@ public class PagoViewController {
     @FXML private TextField txtTitular;
 
     private Evento evento;
+    private Compra compra;
     private Zona zona;
     private Asiento asiento;
     private String servicios;
     private Usuario usuarioActual;
     private SistemaController sistema;
     private CompraController compraController;
+    private ObservableList<Entrada> Entradas = FXCollections.observableArrayList();
+    private ServicioAdicional s;
+    private ObservableList<ServicioAdicional> listaServicios = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -47,22 +55,50 @@ public class PagoViewController {
         compraController = new CompraController();
         cbTipoPago.setItems(FXCollections.observableArrayList("CREDITO", "DEBITO", "PSE"));
     }
+    public void setCompra(Compra compra) {
+        this.compra = compra;
 
-    public void setDatosCompra(Evento evento, Zona zona, Asiento asiento,
-                               String total, Usuario usuario, String servicios) {
-        this.evento = evento;
-        this.zona = zona;
-        this.asiento = asiento;
-        this.usuarioActual = usuario;
-        this.servicios = servicios;
+        // Evento
+        if (compra.getEvento() != null) {
+            lblEvento.setText(compra.getEvento().getNombre());
+        }
 
-        lblEvento.setText(evento.getNombre() != null ? evento.getNombre() : "");
-        lblZonaAsiento.setText(zona.getTipoZona() +
-                (asiento != null ? " / Fila " + asiento.getFila() +
-                        " - Asiento " + asiento.getNumero() : " / General"));
-        lblServicios.setText(servicios.isEmpty() ? "Ninguno" : servicios);
-        lblTotalPagar.setText(total);
+        // Zona / Asiento (tomamos la primera entrada como referencia)
+        if (!compra.getEntradas().isEmpty()) {
+            Entrada entrada = compra.getEntradas().get(0);
+            Zona zona = entrada.getZona();
+            Asiento asiento = entrada.getAsiento();
+            lblZonaAsiento.setText(
+                    (zona != null ? zona.getTipoZona().toString() : "N/A") +
+                            (asiento != null ? " / Fila " + asiento.getFila() +
+                                    " - Asiento " + asiento.getNumero() : "")
+            );
+        }
+
+        // Servicios adicionales
+        String servicios;
+        if (!compra.getServiciosAdicionales().isEmpty()) {
+            servicios = compra.getServiciosAdicionales().stream()
+                    .map(ServicioAdicional::getDescripcion)
+                    .reduce((s1, s2) -> s1 + ", " + s2)
+                    .orElse("Ninguno");
+        } else {
+            servicios = compra.getEntradas().stream()
+                    .map(Entrada::getServicios)
+                    .filter(s -> !s.equals("Ninguno"))
+                    .reduce((s1, s2) -> s1 + ", " + s2)
+                    .orElse("Ninguno");
+        }
+        lblServicios.setText(servicios);
     }
+
+    private double calcularTotalCompra() {
+        return compra.getEntradas()
+                .stream()
+                .mapToDouble(Entrada::getPrecioFinal)
+                .sum();
+    }
+
 
     @FXML
     void OnActionSeleccionarTipo(ActionEvent event) {
@@ -85,22 +121,14 @@ public class PagoViewController {
             return;
         }
 
-        // Crear la compra con los datos reales
-        Compra compra = new Compra(
-                UUID.randomUUID().toString(),
-                usuarioActual,
-                evento,
-                LocalDateTime.now(),
-                0,
-                EstadoCompra.PAGADA,
-                new ArrayList<>(),
-                new ArrayList<>()
-        );
+        // Usar la compra existente
+        compra.setEstadoCompra(EstadoCompra.PAGADA);
+        compra.calcularTotal();
         SistemaController.getInstance().agregarCompra(compra);
 
         // Cambiar estado del asiento a VENDIDO si aplica
-        if (asiento != null) {
-            asiento.setEstadoAsiento(EstadoAsiento.VENDIDO);
+        if (!compra.getEntradas().isEmpty()) {
+            compra.getEntradas().forEach(e -> e.getAsiento().setEstadoAsiento(EstadoAsiento.VENDIDO));
         }
 
         mostrarInfo("¡Pago exitoso!",
@@ -108,7 +136,7 @@ public class PagoViewController {
 
         try {
             Parent root = FXMLLoader.load(
-                    getClass().getResource("/co/edu/uniquindio/concierto/historialCompras.fxml"));
+                    getClass().getResource("/co/edu/uniquindio/concierto/HistorialCompras.fxml"));
             Stage stage = (Stage) cbTipoPago.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (Exception e) {

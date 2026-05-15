@@ -1,9 +1,6 @@
 package co.edu.uniquindio.concierto.controller;
 
-import co.edu.uniquindio.concierto.model.clases.Administrador;
-import co.edu.uniquindio.concierto.model.clases.Compra;
-import co.edu.uniquindio.concierto.model.clases.Evento;
-import co.edu.uniquindio.concierto.model.clases.ServicioAdicional;
+import co.edu.uniquindio.concierto.model.clases.*;
 import co.edu.uniquindio.concierto.model.patrones.composite.Asiento;
 import co.edu.uniquindio.concierto.model.patrones.composite.Recinto;
 import co.edu.uniquindio.concierto.model.patrones.composite.Zona;
@@ -24,6 +21,7 @@ public class SistemaController {
     private List<Zona> listZonas;
     private List<Asiento> listAsientos;
     private List<ServicioAdicional> listServicioAdicional;
+    private List<Incidencia> listIncidencias;
 
 
     private SistemaController () {
@@ -35,6 +33,7 @@ public class SistemaController {
         listAsientos = new ArrayList<>();
         listRecintos = new ArrayList<>();
         listServicioAdicional = new ArrayList<>();
+        listIncidencias = new ArrayList<>();
 
         Administrador admin = new Administrador(
                 "0000",
@@ -154,6 +153,13 @@ public class SistemaController {
         return listServicioAdicional;
     }
 
+    public List<Incidencia> getListIncidencias() {
+        return listIncidencias;
+    }
+
+    public void setListIncidencias(List<Incidencia> listIncidencias) {
+        this.listIncidencias = listIncidencias;
+    }
 
     public Usuario buscarUsuarioPorCredenciales(String correo, String password) {
         return listUsuarios.stream()
@@ -199,4 +205,6 @@ public class SistemaController {
 
     public void actualizarCompra(Compra compra) {
     }
+
+
 }

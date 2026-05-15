@@ -43,7 +43,7 @@
                         <Label layoutX="27.0" layoutY="255.0" text="Total estimado:">
                             <font><Font name="Times New Roman" size="14.0" /></font>
                         </Label>
-                        <Label fx:id="lblTotal" layoutX="151.0" layoutY="255.0" prefHeight="16.0" prefWidth="33.0" text="">
+                        <Label fx:id="lblTotal" layoutX="151.0" layoutY="255.0" prefHeight="16.0" prefWidth="127.0" text="">
                             <font><Font name="Times New Roman" size="14.0" /></font>
                         </Label>
 

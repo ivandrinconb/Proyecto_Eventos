@@ -5,6 +5,6 @@ public enum TipoServicioAdicional {
     VIP,
     MERCHANDISING,
     ACCESOPREFERENCIAL,
-    SEGURO;
+    SEGURO,;
 
 }

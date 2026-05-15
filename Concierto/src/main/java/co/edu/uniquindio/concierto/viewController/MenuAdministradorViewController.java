@@ -87,6 +87,27 @@ public class MenuAdministradorViewController {
 
     @FXML
     void OnActionGenerarIncidencias(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/GestionIncidencia.fxml")
+            );
+            Parent root = loader.load();
+            GestionIncidenciaViewController controller = (GestionIncidenciaViewController) loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Gestión de Incidencias");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo abrir la ventana de gestión de Incidencias.");
+            alert.showAndWait();
+        }
+
 
     }
 
@@ -200,6 +221,26 @@ public class MenuAdministradorViewController {
 
     @FXML
     void OnActionVerReportes(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/VerReportes.fxml")
+            );
+            Parent root = loader.load();
+            VerReportesViewController controller = (VerReportesViewController) loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Reportes");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo abrir la ventana de Reportes.");
+            alert.showAndWait();
+        }
 
     }
 

@@ -1,87 +1,67 @@
 package co.edu.uniquindio.concierto.model.clases;
 
+import co.edu.uniquindio.concierto.model.Enums.EstadoIncidencia;
 import co.edu.uniquindio.concierto.model.interfaces.IIncidencia;
 import co.edu.uniquindio.concierto.model.Enums.TipoIncidencia;
 import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
-public class Incidencia implements IIncidencia {
+public class Incidencia  {
     private String idIncidencia;
-    private String tipoIncidencia;
-    private String descripcionIncidencia;
-    private LocalDateTime fechaIncidencia;
-    private List<Usuario> usuarios;
-    private List<Evento> eventos;
-    private List<Compra> compras;
+    private Usuario usuario;
+    private Evento evento;
+    private String descripcion;
+    private EstadoIncidencia estadoIncidencia;
+    private LocalDate fechaReporte;
+    private TipoIncidencia tipoIncidencia;
 
-    public Incidencia(String idIncidencia, String tipoIncidencia, String descripcionIncidencia, LocalDateTime fechaIncidencia,
-                      List<Usuario> usuarios, List<Evento> eventos, List<Compra> compras) {
-        this.idIncidencia = idIncidencia;
-        this.tipoIncidencia = tipoIncidencia;
-        this.descripcionIncidencia = descripcionIncidencia;
-        this.fechaIncidencia = fechaIncidencia;
-        this.usuarios = usuarios;
-        this.eventos = eventos;
-        this.compras = compras;
-    }
-    public String getIdIncidencia() {
-        return idIncidencia;
-    }
-    public void setIdIncidencia(String idIncidencia) {
-        this.idIncidencia = idIncidencia;
-    }
-    public String getTipoIncidencia() {
-        return tipoIncidencia;
-    }
-    public void setTipoIncidencia(String tipoIncidencia) {
+    public Incidencia(Usuario usuario, Evento evento, String descripcion,
+                      EstadoIncidencia estado, LocalDate fechaReporte, TipoIncidencia tipoIncidencia) {
+        this.idIncidencia = generarIdCorto();
+        this.usuario = usuario;
+        this.evento = evento;
+        this.descripcion = descripcion;
+        this.estadoIncidencia = estado;
+        this.fechaReporte = fechaReporte;
         this.tipoIncidencia = tipoIncidencia;
     }
-    public String getDescripcionIncidencia() {
-        return descripcionIncidencia;
-    }
-    public void setDescripcionIncidencia(String descripcionIncidencia) {
-        this.descripcionIncidencia = descripcionIncidencia;
-    }
-    public LocalDateTime getFechaIncidencia() {
-        return fechaIncidencia;
-    }
-    public void setFechaIncidencia(LocalDateTime fechaIncidencia) {
-        this.fechaIncidencia = fechaIncidencia;
-    }
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-    public List<Evento> getEventos() {
-        return eventos;
-    }
-    public void setEventos(List<Evento> eventos) {
-        this.eventos = eventos;
-    }
-    public List<Compra> getCompras() {
-        return compras;
-    }
-    public void setCompras(List<Compra> compras) {
-        this.compras = compras;
+    public Incidencia(String idIncidencia, Usuario usuario, Evento evento, String descripcion,
+                      EstadoIncidencia estado, LocalDate fechaReporte, TipoIncidencia tipoIncidencia) {
+        this.idIncidencia = idIncidencia;
+        this.usuario = usuario;
+        this.evento = evento;
+        this.descripcion = descripcion;
+        this.estadoIncidencia = estado;
+        this.fechaReporte = fechaReporte;
+        this.tipoIncidencia = tipoIncidencia;
     }
 
-
-    @Override
-    public void registrarIncidencia(TipoIncidencia tipo, String descripcion) {
-
+    private String generarIdCorto() {
+        return UUID.randomUUID().toString().substring(0, 5);
     }
+
+    // Getters y setters
+    public String getIdIncidencia() { return idIncidencia; }
+    public Usuario getUsuario() { return usuario; }
+    public Evento getEvento() { return evento; }
+    public String getDescripcion() { return descripcion; }
+    public EstadoIncidencia getEstado() { return estadoIncidencia; }
+    public LocalDate getFechaReporte() { return fechaReporte; }
+    public TipoIncidencia getTipoIncidencia() { return tipoIncidencia; }
+
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+    public void setEvento(Evento evento) { this.evento = evento; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+    public void setEstado(EstadoIncidencia estado) { this.estadoIncidencia = estado; }
+    public void setFechaReporte(LocalDate fechaReporte) { this.fechaReporte = fechaReporte; }
+    public void setTipoIncidencia(TipoIncidencia tipoIncidencia) { this.tipoIncidencia = tipoIncidencia; }
 
     @Override
-    public void consultarIncidenciasPorFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
-
-    }
-
-    @Override
-    public void consultarIncidenciasPorTipo(TipoIncidencia tipo) {
-
+    public String toString() {
+        return idIncidencia + " - " + descripcion;
     }
 }

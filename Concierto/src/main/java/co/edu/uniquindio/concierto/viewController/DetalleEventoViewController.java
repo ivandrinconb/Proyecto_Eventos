@@ -81,34 +81,40 @@ public class DetalleEventoViewController {
 
     @FXML
     void OnActionComprar(ActionEvent event) {
-        {
-            Zona seleccionada = tableZonas.getSelectionModel().getSelectedItem();
-            if (seleccionada == null) {
-                new Alert(Alert.AlertType.WARNING, "Debes seleccionar una zona antes de comprar.").showAndWait();
-                return;
-            }
-
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/concierto/Compra.fxml"));
-                Parent root = loader.load();
-
-                CompraViewController controller = loader.getController();
-                controller.setEvento(evento);
-                controller.setZona(seleccionada);
-
-                Stage stageActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stageActual.close();
-
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Compra");
-                stage.show();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                new Alert(Alert.AlertType.ERROR, "No se pudo abrir la ventana de Compras.").showAndWait();
-            }
+        Zona seleccionada = tableZonas.getSelectionModel().getSelectedItem();
+        if (seleccionada == null) {
+            mostrarAlerta("Selección requerida", "Por favor selecciona una zona antes de comprar.", Alert.AlertType.ERROR);
+            return;
         }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/Compra.fxml")
+            );
+            Parent root = loader.load();
+
+            // Obtener el controlador de la ventana de compra
+            CompraViewController ctrl = loader.getController();
+            ctrl.setEvento(evento);
+            ctrl.setZona(seleccionada);
+
+            // Cambiar la escena en la misma ventana
+            Stage stage = (Stage) tableZonas.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Compra de entradas");
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudo abrir la ventana de Compras.", Alert.AlertType.ERROR);
+        }
+    }
+    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 
     @FXML

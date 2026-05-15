@@ -1,8 +1,16 @@
 package co.edu.uniquindio.concierto.model.patrones.adapter;
 
-public class CsvExporter {
+import javafx.scene.control.TextArea;
 
-    public void exportCsv(String data) {
-        System.out.println("Exportando CSV: " + data);
+import java.util.List;
+
+public class CsvExporter {
+    public <T> void exportarCSV(List<T> datos, TextArea textArea) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Reporte CSV ===\n");
+        for (T dato : datos) {
+            sb.append(dato.toString()).append("\n");
+        }
+        textArea.setText(sb.toString());
     }
 }

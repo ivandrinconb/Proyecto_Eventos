@@ -75,10 +75,7 @@ public class Asiento implements ComponenteRecinto {
 
     @Override
     public String toString() {
-        return "Asiento =" +
-                " idAsiento=" + idAsiento + '\'' +
-                " fila=" + fila + '\'' +
-                " numero=" + numero +
-                " estadoAsiento=" + estadoAsiento ;
+        return  fila +  numero ;
+
     }
 }

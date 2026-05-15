@@ -13,6 +13,7 @@ import co.edu.uniquindio.concierto.model.patrones.factoryMethod.MetodoPagoFactor
 import co.edu.uniquindio.concierto.model.patrones.observer.Usuario;
 import co.edu.uniquindio.concierto.model.patrones.strategy.IMetodoPago;
 import co.edu.uniquindio.concierto.model.patrones.strategy.ProcesadorPago;
+import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,8 +36,8 @@ public class Compra implements ICompra {
 
     public Compra(double precioBase) {
         this.entrada = new EntradaBase(precioBase);
-        this.serviciosAdicionales = new ArrayList<>();
-        this.entradas = new ArrayList<>();
+        this.entradas = (entradas != null) ? entradas : new ArrayList<>();
+        this.serviciosAdicionales = (serviciosAdicionales != null) ? serviciosAdicionales : new ArrayList<>();
     }
 
     public Compra(String idCompra, Usuario usuario, Evento evento,
@@ -51,8 +52,12 @@ public class Compra implements ICompra {
         this.fechaCreacion = fechaCreacion;
         this.total = total;
         this.estadoCompra = estadoCompra;
-        this.serviciosAdicionales = new ArrayList<>();
-        this.entradas= new ArrayList<>();
+        this.entradas = entradas != null ? entradas : new ArrayList<>();
+        this.serviciosAdicionales = serviciosAdicionales != null ? serviciosAdicionales : new ArrayList<>();
+        this.idCompra = generarIdCorto();
+        this.evento = evento;
+        this.fechaCreacion = LocalDateTime.now();
+        this.estadoCompra = EstadoCompra.PENDIENTE;
 
 
 
@@ -78,8 +83,9 @@ public class Compra implements ICompra {
         this.total = total;
         this.estadoCompra = estadoCompra;
         this.entradas = entradas;
-        this.serviciosAdicionales = new ArrayList<>();
-        this.entradas= new ArrayList<>();
+        this.entradas = (entradas != null) ? entradas : new ArrayList<>();
+        this.serviciosAdicionales = (serviciosAdicionales != null) ? serviciosAdicionales : new ArrayList<>();
+
 
 
     }
@@ -87,6 +93,16 @@ public class Compra implements ICompra {
 
 
     public Compra(String string, Usuario usuarioActual, Evento evento, LocalDateTime now, int i, EstadoCompra estadoCompra, ArrayList<Object> objects, ArrayList<Object> objects1) {
+    }
+
+    public Compra(Evento eventoSeleccionado, ObservableList<Entrada> listaEntradas) {
+        this.idCompra = generarIdCorto();
+        this.evento = eventoSeleccionado;
+        this.entradas = (listaEntradas != null) ? new ArrayList<>(listaEntradas) : new ArrayList<>();
+        this.serviciosAdicionales = new ArrayList<>();
+        this.fechaCreacion = LocalDateTime.now();
+        this.estadoCompra = EstadoCompra.PENDIENTE;
+        this.total = 0;
     }
 
 
@@ -197,11 +213,17 @@ public class Compra implements ICompra {
 
     }
     public void calcularTotal() {
-        double subtotalEntrada = entrada != null ? entrada.getCosto() : 0;
+        double subtotalEntradas = entradas.stream()
+                .mapToDouble(Entrada::getPrecioFinal) // ✅ usa precioFinal
+                .sum();
+
+        // Sumar el costo de todos los servicios adicionales
         double subtotalServicios = serviciosAdicionales.stream()
                 .mapToDouble(ServicioAdicional::getCosto)
                 .sum();
-        this.total = subtotalEntrada + subtotalServicios;
+
+        // Guardar el total en el atributo de la compra
+        this.total = subtotalEntradas + subtotalServicios;
     }
 
 

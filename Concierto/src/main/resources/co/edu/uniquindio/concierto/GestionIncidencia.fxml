@@ -1,14 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="co.edu.uniquindio.concierto.viewController.GestionIncidenciaViewController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="443.0" prefWidth="733.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.concierto.viewController.GestionIncidenciaViewController">
+   <children>
+      <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión De Incidencias">
+         <font>
+            <Font name="Times New Roman Bold" size="24.0" />
+         </font>
+      </Text>
+      <Separator layoutX="14.0" layoutY="44.0" prefHeight="0.0" prefWidth="702.0" />
+      <TableView fx:id="tableIncidencias" layoutX="14.0" layoutY="70.0" prefHeight="306.0" prefWidth="423.0">
+        <columns>
+          <TableColumn fx:id="tcIdIncidencia" prefWidth="60.00000190734863" text="Id Incidencia" />
+          <TableColumn fx:id="tcUsuario" prefWidth="114.39995574951172" text="Usuario" />
+            <TableColumn fx:id="tcEvento" prefWidth="124.0" text="Evento" />
+            <TableColumn fx:id="tcTipoIncidencia" prefWidth="94.4000244140625" text="Tipo" />
+            <TableColumn fx:id="tcDescripcion" prefWidth="234.39996337890625" text="Descripción" />
+            <TableColumn fx:id="tcEstado" prefWidth="98.39996337890625" text="Estado" />
+            <TableColumn fx:id="tcFecha" prefWidth="132.0" text="Fecha" />
+        </columns>
+      </TableView>
+      <Text layoutX="482.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalles de Incidencia">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="482.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="484.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Evento:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="cbUsuario" layoutX="538.0" layoutY="92.0" prefHeight="26.0" prefWidth="166.0" />
+      <ComboBox fx:id="cbEvento" layoutX="538.0" layoutY="130.0" prefHeight="26.0" prefWidth="166.0" />
+      <TextField fx:id="txtDescripcion" alignment="TOP_LEFT" layoutX="483.0" layoutY="205.0" prefHeight="59.0" prefWidth="222.0" promptText="Descripción" />
+      <Text layoutX="484.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="cbEstado" layoutX="538.0" layoutY="279.0" prefHeight="26.0" prefWidth="166.0" />
+      <Text layoutX="482.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha Reporte:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <DatePicker fx:id="dateFechaReporte" layoutX="574.0" layoutY="332.0" prefHeight="26.0" prefWidth="128.0" />
+      <Separator layoutX="14.0" layoutY="389.0" prefHeight="3.0" prefWidth="702.0" />
+      <Text layoutX="484.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo Incidencia:">
+         <font>
+            <Font name="Times New Roman" size="14.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="cbTipoIncidencia" layoutX="576.0" layoutY="171.0" prefHeight="26.0" prefWidth="128.0" />
+      <Button fx:id="btnCrear" layoutX="106.0" layoutY="398.0" mnemonicParsing="false" onAction="#OnActionCrear" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Crear">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="tbtModificar" layoutX="218.0" layoutY="398.0" mnemonicParsing="false" onAction="#OnActionModificar" prefHeight="26.0" prefWidth="69.0" style="-fx-background-color: #FF9800; -fx-text-fill: white;" text="Modificar">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCancelar" layoutX="334.0" layoutY="398.0" mnemonicParsing="false" onAction="#OnActionCancelar" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #F44336; -fx-text-fill: white;" text="Cancelar">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnResolver" layoutX="448.0" layoutY="398.0" mnemonicParsing="false" onAction="#OnActionResolver" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #607D8B; -fx-text-fill: white;" text="Resolver">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnConsultar" layoutX="557.0" layoutY="398.0" mnemonicParsing="false" onAction="#OnActionConsultar" prefHeight="26.0" prefWidth="70.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Consultar">
+         <font>
+            <Font name="Times New Roman Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
 </AnchorPane>

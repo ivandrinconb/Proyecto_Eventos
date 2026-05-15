@@ -16,6 +16,9 @@ public class ServicioAdicional {
         this.entradaDecorada = entradaDecorada;
     }
 
+    public ServicioAdicional(String accesoPreferencial, int i) {
+    }
+
     public String getIdServicio() {
         return idServicio;
     }
@@ -30,7 +33,8 @@ public class ServicioAdicional {
     }
 
     public double getCosto() {
-        return entradaDecorada.getCosto(); // muestra el costo acumulado
+
+        return entradaDecorada.getCosto() ; // muestra el costo acumulado
     }
 
     private String generarIdCorto() {

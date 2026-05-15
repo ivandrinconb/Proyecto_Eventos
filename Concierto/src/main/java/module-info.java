@@ -7,7 +7,6 @@ module co.edu.uniquindio.concierto.concierto {
     requires javafx.base;
 
 
-
     opens co.edu.uniquindio.concierto to javafx.fxml;
     exports co.edu.uniquindio.concierto;
 

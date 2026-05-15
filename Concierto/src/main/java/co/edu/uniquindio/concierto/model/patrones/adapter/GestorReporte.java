@@ -1,20 +1,13 @@
 package co.edu.uniquindio.concierto.model.patrones.adapter;
 
+import java.util.List;
+
 public class GestorReporte {
-    public void exportarReporte(String formato, String contenido) {
-        ExportadorReporte exportador;
-
-        switch (formato.toUpperCase()) {
-            case "PDF":
-                exportador = new PdfReporteAdapter(new PdfExporter());
-                break;
-            case "CSV":
-                exportador = new CsvReporteAdapter(new CsvExporter());
-                break;
-            default:
-                throw new IllegalArgumentException("Formato no soportado: " + formato);
+    public <T> void exportarReporte(ExportadorReporte exportador, List<T> datos) {
+        if (exportador == null || datos == null || datos.isEmpty()) {
+            System.out.println("No hay datos para exportar o exportador inválido.");
+            return;
         }
-
-        exportador.exportar(contenido);
+        exportador.exportar(datos);
     }
 }

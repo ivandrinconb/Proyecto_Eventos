@@ -6,5 +6,5 @@ public enum EstadoCompra {
     CONFIRMADA,
     CANCELADA,
     REEMBOLSADA,
-    INCIDENCIA,
+    INCIDENCIA, PENDIENTE,
 }
