@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class MenuUsuarioViewController {
 
     @FXML
@@ -82,17 +84,33 @@ public class MenuUsuarioViewController {
         // Los servicios adicionales se agregan dentro del flujo de Compra (RF-009, Decorator)
         // Redirigir a explorar eventos para iniciar una compra con servicios
         mostrarInfo("Servicios adicionales",
-                "Los servicios adicionales (VIP, Seguro, Merchandising, Parqueadero, " +
-                        "Acceso Preferencial) se seleccionan al momento de crear tu compra.\n" +
+                "Los servicios adicionales se seleccionan al momento de crear tu compra.\n" +
                         "Selecciona un evento para comenzar.");
         navegarA("/co/edu/uniquindio/concierto/explorarEventos.fxml", null);
     }
 
     @FXML
     void onReportarIncidencia(MouseEvent event) {
-        // RF-017/041: Registrar incidencias — pendiente de implementar pantalla dedicada
-        mostrarInfo("Reportar Incidencia",
-                "Módulo en construcción.\nPor favor contacta al administrador si tienes un problema con tu compra.");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/concierto/GestionIncidencia.fxml")
+            );
+            Parent root = loader.load();
+            GestionIncidenciaViewController controller = (GestionIncidenciaViewController) loader.getController();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Gestión de Incidencias");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("No se pudo abrir la ventana de gestión de Incidencias.");
+            alert.showAndWait();
+        }
     }
 
     @FXML

@@ -90,6 +90,8 @@ public class PagoViewController {
                     .orElse("Ninguno");
         }
         lblServicios.setText(servicios);
+        compra.calcularTotal();
+        lblTotalPagar.setText("$ " + compra.getTotal());
     }
 
     private double calcularTotalCompra() {

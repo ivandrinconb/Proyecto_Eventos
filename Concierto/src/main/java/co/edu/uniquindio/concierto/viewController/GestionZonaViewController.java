@@ -83,7 +83,7 @@ public class GestionZonaViewController {
                 return;
             }
         } else {
-            precioBase = null; // 🔹 inicialización por defecto
+            precioBase = null; //  inicialización por defecto
         }
 
         // Validar que al menos un campo esté lleno
@@ -192,7 +192,7 @@ public class GestionZonaViewController {
                 return;
             }
 
-            // 🔹 Actualizar atributos
+            //  Actualizar atributos
             seleccionada.setTipoZona(tipo);
             seleccionada.setCapacidad(capacidad);
             seleccionada.setPrecioBase(precioBase);
@@ -225,17 +225,17 @@ public class GestionZonaViewController {
 
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-                // 🔹 Eliminar de la lista del recinto
+                //  Eliminar de la lista del recinto
                 recinto.getZonas().remove(seleccionada);
 
-                // 🔹 Eliminar también del SistemaController
+                //  Eliminar también del SistemaController
                 SistemaController.getInstance().eliminarZona(seleccionada);
 
-                // 🔹 Refrescar la tabla
+                //  Refrescar la tabla
                 tableZona.setItems(FXCollections.observableArrayList(recinto.getZonas()));
                 tableZona.refresh();
 
-                // 🔹 Limpiar campos
+                //  Limpiar campos
                 limpiarCampos();
 
                 mostrarAlerta("Zona eliminada",

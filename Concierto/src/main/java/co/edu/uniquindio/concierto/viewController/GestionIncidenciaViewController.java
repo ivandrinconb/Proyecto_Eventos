@@ -84,11 +84,25 @@ public class GestionIncidenciaViewController {
 
     @FXML
     void OnActionCancelar(ActionEvent event) {
+        limpiarCampos();
+        mostrarAlerta("Acción cancelada", "Los campos fueron limpiados.", Alert.AlertType.INFORMATION);
 
     }
 
     @FXML
     void OnActionConsultar(ActionEvent event) {
+        Incidencia seleccionada = tableIncidencias.getSelectionModel().getSelectedItem();
+        if (seleccionada == null) {
+            mostrarAlerta("Selección requerida", "Debes seleccionar una incidencia para consultar.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        cbUsuario.setValue(seleccionada.getUsuario());
+        cbEvento.setValue(seleccionada.getEvento());
+        cbTipoIncidencia.setValue(seleccionada.getTipoIncidencia());
+        cbEstado.setValue(seleccionada.getEstado());
+        txtDescripcion.setText(seleccionada.getDescripcion());
+        dateFechaReporte.setValue(seleccionada.getFechaReporte());
 
     }
 
@@ -145,11 +159,37 @@ public class GestionIncidenciaViewController {
 
     @FXML
     void OnActionModificar(ActionEvent event) {
+        Incidencia seleccionada = tableIncidencias.getSelectionModel().getSelectedItem();
+        if (seleccionada == null) {
+            mostrarAlerta("Selección requerida", "Debes seleccionar una incidencia para modificar.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        // Actualizar con los valores del formulario
+        seleccionada.setUsuario(cbUsuario.getValue());
+        seleccionada.setEvento(cbEvento.getValue());
+        seleccionada.setTipoIncidencia(cbTipoIncidencia.getValue());
+        seleccionada.setDescripcion(txtDescripcion.getText());
+        seleccionada.setEstado(cbEstado.getValue());
+        seleccionada.setFechaReporte(dateFechaReporte.getValue());
+
+        tableIncidencias.refresh();
+        mostrarAlerta("Incidencia modificada", "Los datos fueron actualizados correctamente.", Alert.AlertType.CONFIRMATION);
+        limpiarCampos();
 
     }
 
     @FXML
     void OnActionResolver(ActionEvent event) {
+        Incidencia seleccionada = tableIncidencias.getSelectionModel().getSelectedItem();
+        if (seleccionada == null) {
+            mostrarAlerta("Selección requerida", "Debes seleccionar una incidencia para resolver.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        seleccionada.setEstado(EstadoIncidencia.RESUELTA);
+        tableIncidencias.refresh();
+        mostrarAlerta("Incidencia resuelta", "La incidencia fue marcada como resuelta.", Alert.AlertType.INFORMATION);
 
     }
 

@@ -147,8 +147,9 @@ public class CompraViewController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/concierto/Pago.fxml"));
             Parent root = loader.load();
 
+
             PagoViewController ctrl = loader.getController();
-            ctrl.setCompra(compra); // ✅ ahora la compra tiene los servicios
+            ctrl.setCompra(compra);
 
             Stage stage = (Stage) btnConfirmar.getScene().getWindow();
             stage.setScene(new Scene(root));
